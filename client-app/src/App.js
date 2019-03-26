@@ -10,7 +10,7 @@ import PlacesHome from "./components/PlacesHome";
 import DisplayPlace from "./components/DisplayPlace";
 import About from "./components/About";
 import Privacy from "./components/Privacy";
-import Faq from "./components/Faq";
+import Faq from "./components/FAQ";
 import Contact from "./components/ContactForm";
 import FoodAllergenHome from "./components/FoodAllergenHome";
 import DisplayFoodAllergen from "./components/DisplayFoodAllergen";

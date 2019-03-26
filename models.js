@@ -51,5 +51,60 @@ const Country = sequelize.define('cities', {
   name: { type: Sequelize.STRING, allowNull: false},
 });
 
+const Language = sequelize.define('languages', {
+  name: { type: Sequelize.STRING, allowNull: false},
+  gCode: { type: Sequelize.STRING, allowNull: true},
+});
 
-module.exports = {User, Allergy, Review, Restaurant, City, Country, sequelize}
+const CountryLanguage = sequelize.define('countrylanguages', {
+  name: { type: Sequelize.STRING, allowNull: false},
+  isofficial: { type: Sequelize.BOOLEAN, allowNull: true},
+});
+
+const Blogpost = sequelize.define('blogposts', {
+  title: { type: Sequelize.STRING, allowNull: false},
+  content: { type: Sequelize.TEXT, allowNull: false},
+})
+
+const UserAllergy = sequelize.define('userallergies', {});
+
+
+User.belongsToMany(Allergy, {through: UserAllergy});
+Allergy.belongsToMany(User, {through: UserAllergy});
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
+Review.hasMany(Allergy);
+Allergy.belongsTo(Review);
+
+Restaurant.hasMany(Review);
+Review.belongsTo(Restaurant);
+
+City.hasMany(Restaurant);
+Restaurant.belongsTo(City);
+
+Country.hasMany(City);
+City.belongsTo(Country);
+
+Country.belongsToMany(Language, {through: CountryLanguage});
+Language.belongsToMany(Country, {through: CountryLanguage});
+
+User.hasMany(Blogpost);
+Blogpost.belongsTo(User);
+
+Country.hasMany(Blogpost);
+Blogpost.belongsTo(Country);
+
+
+module.exports = {
+  User,
+  Allergy,
+  Review,
+  Restaurant,
+  City,
+  Country,
+  CountryLanguage,
+  Blogpost,
+  sequelize
+}

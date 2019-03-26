@@ -1,0 +1,37 @@
+{
+  "name": "allergenius",
+  "version": "1.0.0",
+  "description": "project 4",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
+    "create-react-app": "^2.1.8",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "node": "^11.12.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.9.0",
+    "react": "^16.8.5",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "sequelize": "^5.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgillen27/allergenius.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgillen27/allergenius/issues"
+  },
+  "homepage": "https://github.com/dgillen27/allergenius#readme"
+}

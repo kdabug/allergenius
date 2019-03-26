@@ -57,7 +57,7 @@ const QueryBar = props => {
             onSubmit={onSubmit && onClick}
             name="userInput"
             autoComplete="off"
-            placeholder="search stations"
+            placeholder="search city, country, allergen, or language"
           />
         </form>
       </div>

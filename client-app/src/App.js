@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, Route, withRouter } from "react-router-dom";
 import Footer from "./components/Footer";
 import QueryBar from "./components/QueryBar";
 import Header from "./components/Header";
@@ -13,6 +14,10 @@ import Faq from "./components/Faq";
 import Contact from "./components/ContactForm";
 import FoodAllergenHome from "./components/FoodAllergenHome";
 import DisplayFoodAllergen from "./components/DisplayFoodAllergen";
+import LogoutForm from "./components/LogoutForm";
+import TravelTips from "./components/TravelTips";
+import UserProfile from "./components/UserProfile";
+import decode from "jwt-decode";
 
 import "./App.css";
 
@@ -132,18 +137,18 @@ class App extends Component {
 
   async handleLogin(e) {
     e.preventDefault();
-    const userData = await loginUser(this.state.loginFormData);
-    console.log("userdata from handleLogin", userData);
-    this.setState({
-      currentUser: userData.data.user.username,
-      token: userData.data.token,
-      userData: userData.data.user,
-      loginFormData: {
-        email: "",
-        password: ""
-      }
-    });
-    localStorage.setItem("jwt", userData.data.token);
+    //const userData = await loginUser(this.state.loginFormData);
+    //console.log("userdata from handleLogin", userData);
+    // this.setState({
+    //   currentUser: userData.data.user.username,
+    //   token: userData.data.token,
+    //   userData: userData.data.user,
+    //   loginFormData: {
+    //     email: "",
+    //     password: ""
+    //   }
+    // });
+    //localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/`);
   }
 
@@ -156,28 +161,28 @@ class App extends Component {
 
   async handleRegister(e) {
     e.preventDefault();
-    const userData = await createNewUser(this.state.registerFormData);
-    this.setState((prevState, newState) => ({
-      currentUser: userData.data.user.username,
-      userData: userData.data.user,
-      token: userData.data.token,
-      registerFormData: {
-        username: "",
-        email: "",
-        password: ""
-      }
-    }));
-    localStorage.setItem("jwt", userData.data.token);
+    //const userData = await createNewUser(this.state.registerFormData);
+    // this.setState((prevState, newState) => ({
+    //   currentUser: userData.data.user.username,
+    //   userData: userData.data.user,
+    //   token: userData.data.token,
+    //   registerFormData: {
+    //     username: "",
+    //     email: "",
+    //     password: ""
+    //   }
+    // }));
+    //localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/`);
   }
 
   async handleEdit(e) {
     e.preventDefault();
-    const userData = await editUser(
-      this.state.userData.id,
-      this.state.userData
-    );
-    console.log("resp userData from handleEdit", userData);
+    // const userData = await editUser(
+    //   this.state.userData.id,
+    //   this.state.userData
+    // );
+    //console.log("resp userData from handleEdit", userData);
     // this.setState((prevState, newState) => ({
     //   currentUser: userData.data.user.username,
     //   userData: userData.data.user
@@ -302,7 +307,6 @@ class App extends Component {
                 passwordAsk={"y"}
                 toggleLocal={this.state.handleToggleLocalRegister}
               />
-              <Loading show={this.state.currentUser} />
             </>
           )}
         />

@@ -1,5 +1,4 @@
 import React from "react";
-import ratAvatars from "../ratAvatars";
 
 export default props => {
   const {

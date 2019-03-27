@@ -45,7 +45,7 @@ const main = async () => {
   });
 
   const user0 = await User.create({
-    username: 'allergenius',
+    username: 'Sohpie',
     email: 'email@email.com',
     password_digest: 'testpass'
   })

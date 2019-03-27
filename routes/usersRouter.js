@@ -98,6 +98,5 @@ usersRouter.post('/login', async (req, res, next) => {
   }
 })
 
-// export the router without braces since
-// it is the only value being exported
+
 module.exports = usersRouter;

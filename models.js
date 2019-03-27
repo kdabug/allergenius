@@ -47,7 +47,7 @@ const City = sequelize.define('cities', {
   name: { type: Sequelize.STRING, allowNull: false},
 });
 
-const Country = sequelize.define('cities', {
+const Country = sequelize.define('countries', {
   name: { type: Sequelize.STRING, allowNull: false},
 });
 

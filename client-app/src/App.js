@@ -138,6 +138,14 @@ class App extends Component {
 
   async handleLogin(e) {
     e.preventDefault();
+    const { userData }= await loginUser(this.state.loginFormData);
+    console.log(userData);
+    this.setState({
+      currentUser: userData
+    });
+
+    this.props.history.push('/users');
+    // e.preventDefault();
     //const userData = await loginUser(this.state.loginFormData);
     //console.log("userdata from handleLogin", userData);
     // this.setState({
@@ -150,7 +158,6 @@ class App extends Component {
     //   }
     // });
     //localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/`);
   }
 
   handleLoginClick(e) {
@@ -204,6 +211,7 @@ class App extends Component {
       }
     }));
   }
+
   handleRegisterFormChange(e) {
     const { name, value } = e.target;
     console.log("handleRegisterChange name, val", name, value);
@@ -214,6 +222,7 @@ class App extends Component {
       }
     }));
   }
+
   handleEditFormChange(e) {
     const { name, value } = e.target;
     console.log("handleEditChange name, val", name, value);

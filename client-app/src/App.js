@@ -18,6 +18,7 @@ import LogoutForm from "./components/LogoutForm";
 import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import decode from "jwt-decode";
+import { registerUser, verifyToken, loginUser } from './services/usersApi'
 
 import "./App.css";
 
@@ -161,19 +162,12 @@ class App extends Component {
 
   async handleRegister(e) {
     e.preventDefault();
-    //const userData = await createNewUser(this.state.registerFormData);
-    // this.setState((prevState, newState) => ({
-    //   currentUser: userData.data.user.username,
-    //   userData: userData.data.user,
-    //   token: userData.data.token,
-    //   registerFormData: {
-    //     username: "",
-    //     email: "",
-    //     password: ""
-    //   }
-    // }));
-    //localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/`);
+    const { registerFormData } = this.state;
+    const userData = await registerUser(registerFormData);
+    this.setState({
+      currentUser: userData
+    });
+    this.props.history.push(`/users`);
   }
 
   async handleEdit(e) {

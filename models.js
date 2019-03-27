@@ -22,7 +22,7 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
 }
 
 const User = sequelize.define('users', {
-  name: { type: Sequelize.STRING, allowNull: false},
+  username: { type: Sequelize.STRING, allowNull: false},
   email: { type: Sequelize.STRING, allowNull: false},
   password_digest: { type: Sequelize.STRING, allowNull: false},
 });

@@ -62,7 +62,8 @@ export default props => {
             )}
           </div>
         </div>
-        <button type="submit" onClick={onClick}>
+        <button type="submit" onClick={onSubmit}>Register</button>
+        <button onClick={onClick}>
           {backButtonText}
         </button>
       </form>

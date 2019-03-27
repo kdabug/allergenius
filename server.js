@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 
 // allow the port to be defined with an env var or a dev value
-const PORT = 3000;
+const PORT = 4000;
 
 // router imports
 const usersRouter = require('./routes/usersRouter');

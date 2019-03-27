@@ -14,11 +14,21 @@ const getCountry = async (countryId) => {
     const resp = await api.get(`/countriesRouter/${countryId}`)
     return resp.data
   } catch(e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
-getCountry(1);
+const getCountryCities = async (countryId) => {
+  try {
+    const resp = await api.get(`/countriesRouter/${countryId}/cities`)
+    console.log(resp.data);
+    return resp.data
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+getCountryCities(1);
 
 const postCountry = async (name) => {
   try {
@@ -33,8 +43,8 @@ const postCountry = async (name) => {
   }
 }
 
-export {
-  getCountry,
-  getCountries,
-  postCountry,
-}
+// export {
+//   getCountry,
+//   getCountries,
+//   postCountry,
+// }

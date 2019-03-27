@@ -23,6 +23,17 @@ countriesRouter.get('/:id', async (req, res) => {
   }
 });
 
+countriesRouter.get('/:id/cities', async (req, res) => {
+  try {
+    const country = await Country.findByPk(req.params.id);
+    const cities = await country.getCities();
+    res.json({ cities });
+  } catch(e) {
+    console.log(e);
+    res.status(500).send(e.message);
+  }
+})
+
 countriesRouter.post('/', async (req, res) => {
   try {
     const { name } = req.body

@@ -10,7 +10,7 @@ const PORT = 4000;
 const usersRouter = require('./routes/usersRouter');
 const allergiesRouter = require('./routes/allergiesRouter');
 const blogpostsRouter = require('./routes/blogpostsRouter');
-const countryRouter = require('./routes/countryRouter');
+const countriesRouter = require('./routes/countriesRouter');
 
 // after importing middleware define app and mount them
 const app = express();

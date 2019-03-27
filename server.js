@@ -8,6 +8,9 @@ const PORT = 4000;
 
 // router imports
 const usersRouter = require('./routes/usersRouter');
+const allergiesRouter = require('./routes/allergiesRouter');
+const blogpostsRouter = require('./routes/blogpostsRouter');
+const countryRouter = require('./routes/countryRouter');
 
 // after importing middleware define app and mount them
 const app = express();
@@ -21,6 +24,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRouter);
+app.use('/allergies', allergiesRouter);
+app.use('/blogposts', blogpostsRouter);
+app.use('/countriesRouter', countriesRouter);
 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

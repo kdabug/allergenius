@@ -141,7 +141,8 @@ class App extends Component {
     const { userData }= await loginUser(this.state.loginFormData);
     console.log(userData);
     this.setState({
-      currentUser: userData
+      currentUser: userData,
+      token: localStorage.getItem('authToken')
     });
 
     this.props.history.push('/users');
@@ -236,19 +237,31 @@ class App extends Component {
 
   async componentDidMount() {
     //await this.getQueryBarData();
-    const checkUser = localStorage.getItem("jwt");
-    if (checkUser) {
-      const user = decode(checkUser);
-      this.setState((prevState, newState) => ({
-        currentUser: user,
-        token: checkUser,
-        userData: {
-          id: user.id,
-          username: user.username,
-          email: user.email
-        }
-      }));
+    try {
+      const { user } = await verifyToken();
+      if (user !== undefined) {
+        this.setState({
+          currentUser: user
+        })
+      } else {
+        this.props.history.push('/');
+      }
+    } catch (e) {
+      this.props.history.push('/');
     }
+    // const checkUser = localStorage.getItem("jwt");
+    // if (checkUser) {
+    //   const user = decode(checkUser);
+    //   this.setState((prevState, newState) => ({
+    //     currentUser: user,
+    //     token: checkUser,
+    //     userData: {
+    //       id: user.id,
+    //       username: user.username,
+    //       email: user.email
+    //     }
+    //   }));
+    // }
   }
   render() {
     return (

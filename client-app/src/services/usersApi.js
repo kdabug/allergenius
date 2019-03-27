@@ -9,7 +9,7 @@ const registerUser = async (user) => {
     password,
     username,
   });
-
+  
   const { data } = resp;
 
   updateToken(data.token);

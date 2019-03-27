@@ -18,6 +18,7 @@ import LogoutForm from "./components/LogoutForm";
 import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import decode from "jwt-decode";
+import { registerUser, verifyToken, loginUser } from './services/usersApi'
 
 import "./App.css";
 
@@ -137,6 +138,15 @@ class App extends Component {
 
   async handleLogin(e) {
     e.preventDefault();
+    const { userData }= await loginUser(this.state.loginFormData);
+    console.log(userData);
+    this.setState({
+      currentUser: userData,
+      token: localStorage.getItem('authToken')
+    });
+
+    this.props.history.push('/users');
+    // e.preventDefault();
     //const userData = await loginUser(this.state.loginFormData);
     //console.log("userdata from handleLogin", userData);
     // this.setState({
@@ -149,7 +159,6 @@ class App extends Component {
     //   }
     // });
     //localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/`);
   }
 
   handleLoginClick(e) {
@@ -161,19 +170,12 @@ class App extends Component {
 
   async handleRegister(e) {
     e.preventDefault();
-    //const userData = await createNewUser(this.state.registerFormData);
-    // this.setState((prevState, newState) => ({
-    //   currentUser: userData.data.user.username,
-    //   userData: userData.data.user,
-    //   token: userData.data.token,
-    //   registerFormData: {
-    //     username: "",
-    //     email: "",
-    //     password: ""
-    //   }
-    // }));
-    //localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/`);
+    const { registerFormData } = this.state;
+    const userData = await registerUser(registerFormData);
+    this.setState({
+      currentUser: userData
+    });
+    this.props.history.push(`/users`);
   }
 
   async handleEdit(e) {
@@ -210,6 +212,7 @@ class App extends Component {
       }
     }));
   }
+
   handleRegisterFormChange(e) {
     const { name, value } = e.target;
     console.log("handleRegisterChange name, val", name, value);
@@ -220,6 +223,7 @@ class App extends Component {
       }
     }));
   }
+
   handleEditFormChange(e) {
     const { name, value } = e.target;
     console.log("handleEditChange name, val", name, value);
@@ -233,19 +237,31 @@ class App extends Component {
 
   async componentDidMount() {
     //await this.getQueryBarData();
-    const checkUser = localStorage.getItem("jwt");
-    if (checkUser) {
-      const user = decode(checkUser);
-      this.setState((prevState, newState) => ({
-        currentUser: user,
-        token: checkUser,
-        userData: {
-          id: user.id,
-          username: user.username,
-          email: user.email
-        }
-      }));
+    try {
+      const { user } = await verifyToken();
+      if (user !== undefined) {
+        this.setState({
+          currentUser: user
+        })
+      } else {
+        this.props.history.push('/');
+      }
+    } catch (e) {
+      this.props.history.push('/');
     }
+    // const checkUser = localStorage.getItem("jwt");
+    // if (checkUser) {
+    //   const user = decode(checkUser);
+    //   this.setState((prevState, newState) => ({
+    //     currentUser: user,
+    //     token: checkUser,
+    //     userData: {
+    //       id: user.id,
+    //       username: user.username,
+    //       email: user.email
+    //     }
+    //   }));
+    // }
   }
   render() {
     return (

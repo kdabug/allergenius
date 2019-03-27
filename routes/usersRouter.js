@@ -29,17 +29,15 @@ usersRouter.post('/', async (req, res, next) => {
   try {
     const {
       email,
-      first_name,
-      last_name,
+      username,
       password
     } = req.body;
     const pw_digest = await hashPassword(password)
 
     const user = await User.create({
       email,
-      first_name,
-      last_name,
-      password_digest: pw_digest
+      username,
+      password_digest: pw_digest,
     });
 
     const {

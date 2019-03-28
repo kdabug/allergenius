@@ -5,10 +5,9 @@ const countriesRouter = Router();
 
 countriesRouter.get('/', async (req, res) => {
   try {
-    const countries = Country.findAll();
+    const countries = await Country.findAll();
     res.json({ countries })
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
   }
 });
@@ -46,5 +45,20 @@ countriesRouter.post('/', async (req, res) => {
     console.log(e);
   }
 });
+
+countriesRouter.post('/:id/cities', async (req, res) => {
+  try {
+    const { name } = req.body
+    const countryId = req.params.id
+    const city = await City.create({
+      name
+    })
+    await city.setCountry(countryId)
+    res.json(city.dataValues)
+  }
+  catch(e) {
+    console.log(e);
+  }
+})
 
 module.exports = countriesRouter;

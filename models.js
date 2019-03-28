@@ -96,6 +96,7 @@ module.exports = {
   Restaurant,
   City,
   Country,
+  Language,
   CountryLanguage,
   Blogpost,
   sequelize

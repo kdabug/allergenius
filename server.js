@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const {Language} = require('./models');
 
 // allow the port to be defined with an env var or a dev value
 const PORT = 4000;
@@ -27,6 +28,12 @@ app.use('/users', usersRouter);
 app.use('/allergies', allergiesRouter);
 app.use('/blogposts', blogpostsRouter);
 app.use('/countriesRouter', countriesRouter);
+
+app.get('/languages', async (req,res) => {
+  console.log('languages route triggered')
+  let resp = await Language.findAll().then(resp => resp);
+  res.json(resp)
+});
 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

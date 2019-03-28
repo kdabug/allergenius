@@ -1,4 +1,4 @@
-const { User, Allergy } = require('./models')
+const { User, Country, Blogpost, Allergy, CountryLanguage, Language, UserAllergy} = require('./models')
 
 const main = async () => {
   await Allergy.destroy({
@@ -6,6 +6,26 @@ const main = async () => {
   })
 
   await User.destroy({
+    where: {}
+  })
+
+  await Country.destroy({
+    where: {}
+  })
+
+  await Blogpost.destroy({
+    where: {}
+  })
+
+  await UserAllergy.destroy({
+    where: {}
+  })
+
+  await Language.destroy({
+    where: {}
+  })
+
+  await CountryLanguage.destroy({
     where: {}
   })
 

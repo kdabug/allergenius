@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createNewComment } from "../services/users-helpers";
+import { createBlogpost } from "../services/blogpostsApi";
 import { withRouter, Link } from "react-router-dom";
 
 class AddBlogPost extends Component {
@@ -28,7 +28,7 @@ class AddBlogPost extends Component {
   }
   async handleSubmit(e) {
     e.preventDefault();
-    const resp = await createNewComment(
+    const resp = await createBlogpost(
       this.props.match.params.id,
       this.state.postData
     );

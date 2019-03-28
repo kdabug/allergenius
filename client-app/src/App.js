@@ -7,7 +7,7 @@ import ExploreHome from "./components/ExploreHome";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import PlacesHome from "./components/PlacesHome";
-import DisplayPlace from "./components/DisplayPlace";
+import DisplayPlaceData from "./components/DisplayPlaceData";
 import About from "./components/About";
 import Privacy from "./components/Privacy";
 import Faq from "./components/FAQ";
@@ -17,6 +17,7 @@ import DisplayFoodAllergen from "./components/DisplayFoodAllergen";
 import LogoutForm from "./components/LogoutForm";
 import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
+import AddBlogPost from "./components/AddBlogPost";
 import decode from "jwt-decode";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
@@ -408,7 +409,11 @@ class App extends Component {
         />
         <Route exact path="/contact" render={() => <Contact />} />
         <Route exact path="/places" render={() => <PlacesHome />} />
-        <Route exact path="/places/:place_id" render={() => <DisplayPlace />} />
+        <Route
+          exact
+          path="/places/:place_id"
+          render={() => <DisplayPlaceData />}
+        />
         <Route
           exact
           path="/logout"

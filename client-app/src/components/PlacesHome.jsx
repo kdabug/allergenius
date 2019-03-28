@@ -1,5 +1,6 @@
 import React from "react";
 import QueryBar from "./QueryBar";
+import { Link, Route, withRouter } from "react-router-dom";
 
 export default props => (
   <div className="contact-container">
@@ -9,40 +10,40 @@ export default props => (
     <div className="preset-cities-container">
       <h2>Example Places</h2>
       <div>
-        icon & <Link to={"/places/" + places_id}>London, England</Link>
+        icon & <Link to={"/places/"}>London, England</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Paris, France</Link>
+        icon & <Link to={"/places/"}>Paris, France</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Tokyo, Japan</Link>
+        icon & <Link to={"/places/"}>Tokyo, Japan</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Rio De Janiero, Brazil</Link>
+        icon & <Link to={"/places/"}>Rio De Janiero, Brazil</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>London, England</Link>
+        icon & <Link to={"/places/"}>London, England</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Paris, France</Link>
+        icon & <Link to={"/places/"}>Paris, France</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Tokyo, Japan</Link>
+        icon & <Link to={"/places/"}>Tokyo, Japan</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Rio De Janiero, Brazil</Link>
+        icon & <Link to={"/places/"}>Rio De Janiero, Brazil</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>London, England</Link>
+        icon & <Link to={"/places/"}>London, England</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Paris, France</Link>
+        icon & <Link to={"/places/"}>Paris, France</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Tokyo, Japan</Link>
+        icon & <Link to={"/places/"}>Tokyo, Japan</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Rio De Janiero, Brazil</Link>
+        icon & <Link to={"/places/"}>Rio De Janiero, Brazil</Link>
       </div>
     </div>
   </div>

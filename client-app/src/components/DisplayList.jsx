@@ -1,11 +1,4 @@
 import React from "react";
-
-export default props => (
-  <div className="list-container">
-    <h1>Display list</h1>
-  </div>
-);
-import React from "react";
 import { withRouter } from "react-router-dom";
 
 const CommentList = props => {

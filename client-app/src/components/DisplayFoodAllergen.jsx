@@ -1,4 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
+import { Link, Route, withRouter } from "react-router-dom";
+import Translate from "./Translate";
 
 class DisplayFoodAllergen extends Component {
   constructor(props) {

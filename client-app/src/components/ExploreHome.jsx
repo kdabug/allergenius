@@ -1,5 +1,6 @@
 import React from "react";
 import DisplayList from "./DisplayList";
+import { Link, Route, withRouter } from "react-router-dom";
 
 export default props => (
   <div className="explore-home-container">
@@ -7,31 +8,31 @@ export default props => (
     <div className="preset-cities-container">
       <h2>Places</h2>
       <div>
-        icon & <Link to={"/places/" + places_id}>London, England</Link>
+        icon & <Link to={"/places/"}>London, England</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Paris, France</Link>
+        icon & <Link to={"/places/"}>Paris, France</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Tokyo, Japan</Link>
+        icon & <Link to={"/places/"}>Tokyo, Japan</Link>
       </div>
       <div>
-        icon & <Link to={"/places/" + places_id}>Rio De Janiero, Brazil</Link>
+        icon & <Link to={"/places/"}>Rio De Janiero, Brazil</Link>
       </div>
     </div>
     <div className="preset-allergens-container">
       <h2>Allergens</h2>
       <div>
-        icon & <Link to={"/food-allergens/" + allergen_id}>Shellfish</Link>
+        icon & <Link to={"/food-allergens/"}>Shellfish</Link>
       </div>
       <div>
-        icon & <Link to={"/food-allergens/" + allergen_id}>Peanuts</Link>
+        icon & <Link to={"/food-allergens/"}>Peanuts</Link>
       </div>
       <div>
-        icon & <Link to={"/food-allergens/" + allergen_id}>Eggs</Link>
+        icon & <Link to={"/food-allergens/"}>Eggs</Link>
       </div>
       <div>
-        icon & <Link to={"/food-allergens/" + allergen_id}>Tree Nut</Link>
+        icon & <Link to={"/food-allergens/"}>Tree Nut</Link>
       </div>
     </div>
   </div>

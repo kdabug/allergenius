@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {User, Blogpost, Country} = require('../models');
+const {User, Blogpost, Country, City} = require('../models');
 const blogpostsRouter = Router();
 
 blogpostsRouter.use((req, res, next) => {
@@ -24,9 +24,9 @@ blogpostsRouter.get('/', async (req, res) => {
 blogpostsRouter.post('/user/:user_id', async (req, res) => {
   try {
     const {user_id} = req.params;
-    const {countryId, title, content} = req.body;
+    const {cityId, title, content} = req.body;
     const resp = await Blogpost.create({
-      countryId,
+      cityId,
       title,
       content,
       userId: user_id});
@@ -50,7 +50,7 @@ blogpostsRouter.get('/user/:user_id', async (req, res) => {
   }
 })
 
-//get a country's blogposts
+/*get a country's blogposts
 blogpostsRouter.get('/country/:country_id', async (req, res) => {
   try {
     const {country_id} = req.params;
@@ -61,7 +61,22 @@ blogpostsRouter.get('/country/:country_id', async (req, res) => {
     console.error(e);
     res.status(403);
   }
-})
+})*/
+
+//get a city's blogposts
+blogpostsRouter.get('/city/:city_id', async (req, res) => {
+  try {
+    const {city_id} = req.params;
+    const city = await City.findOne({where: {id: city_id}});
+    const resp = await city.getBlogposts().then(resp => resp);
+    res.json(resp);
+  } catch (e) {
+    console.error(e);
+    res.status(403);
+  }
+});
+
+
 
 
 module.exports = blogpostsRouter;

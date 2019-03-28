@@ -84,8 +84,8 @@ Language.belongsToMany(Country, {through: CountryLanguage});
 User.hasMany(Blogpost);
 Blogpost.belongsTo(User);
 
-Country.hasMany(Blogpost);
-Blogpost.belongsTo(Country);
+City.hasMany(Blogpost);
+Blogpost.belongsTo(City);
 
 
 module.exports = {

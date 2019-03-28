@@ -8,9 +8,9 @@ async function getBlogposts() {
 }
 
 //create a blogPost ... make sure you pass user_id and countryId
-async function createBlogpost(user_id, countryId, title, content) {
+async function createBlogpost(user_id, cityId, title, content) {
   let resp = await api.post('/blogposts/user/' + user_id, {
-    countryId,
+    cityId,
     title,
     content
   });
@@ -18,8 +18,8 @@ async function createBlogpost(user_id, countryId, title, content) {
 }
 
 //get blogposts for a country .. make sure you pass country_id
-async function getCountrysBlogposts(country_id) {
-  let resp = await api('/blogposts/country/' + country_id);
+async function getCitiesBlogposts(city_id) {
+  let resp = await api('/blogposts/country/' + city_id);
   return resp.data;
 }
 
@@ -32,6 +32,6 @@ async function getUsersBlogposts(user_id) {
 export {
   getBlogposts,
   getUsersBlogposts,
-  getCountrysBlogposts,
+  getCitiesBlogposts,
   createBlogpost
 }

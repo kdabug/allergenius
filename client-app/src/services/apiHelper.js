@@ -9,6 +9,7 @@ const updateToken = (token) => {
   api.defaults.headers.common.authorization = `Bearer ${token}`;
 };
 
+
 module.exports = {
   api,
   updateToken

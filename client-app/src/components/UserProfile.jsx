@@ -61,8 +61,7 @@ class UserProfile extends Component {
               Add Blog Post{" "}
             </button>{" "}
           </div>{" "}
-          <h1> User Favorites: </h1>
-          <DisplayUserData />
+          <h1> User Posts: </h1>
           <DisplayList listData={this.state.posts} />
         </div>{" "}
       </div>

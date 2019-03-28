@@ -30,8 +30,9 @@ app.use('/blogposts', blogpostsRouter);
 app.use('/countriesRouter', countriesRouter);
 
 app.get('/languages', async (req,res) => {
-  let resp = await Language.findAll();
-  res.json(resp.data)
+  console.log('languages route triggered')
+  let resp = await Language.findAll().then(resp => resp);
+  res.json(resp)
 });
 
 

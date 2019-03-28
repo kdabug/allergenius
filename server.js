@@ -32,7 +32,6 @@ app.use('/countriesRouter', countriesRouter);
 app.use('/cities', citiesRouter)
 
 app.get('/languages', async (req,res) => {
-  console.log('languages route triggered')
   let resp = await Language.findAll().then(resp => resp);
   res.json(resp)
 });

@@ -12,6 +12,7 @@ const usersRouter = require('./routes/usersRouter');
 const allergiesRouter = require('./routes/allergiesRouter');
 const blogpostsRouter = require('./routes/blogpostsRouter');
 const countriesRouter = require('./routes/countriesRouter');
+const citiesRouter = require('./routes/citiesRouter');
 
 // after importing middleware define app and mount them
 const app = express();
@@ -28,6 +29,7 @@ app.use('/users', usersRouter);
 app.use('/allergies', allergiesRouter);
 app.use('/blogposts', blogpostsRouter);
 app.use('/countriesRouter', countriesRouter);
+app.use('/cities', citiesRouter)
 
 app.get('/languages', async (req,res) => {
   console.log('languages route triggered')

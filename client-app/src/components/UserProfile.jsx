@@ -1,16 +1,10 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import StationList from "./StationList";
-import decode from "jwt-decode";
-import { getUserFavorite } from "../services/users-helpers";
+import React from "react";
+
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
-      userData: {},
-      userFavorites: {},
-      favorites: []
+      posts: []
     };
   }
 
@@ -29,9 +23,9 @@ class UserProfile extends Component {
           user
         }
       }));
-      const favorites = await getUserFavorite(this.props.match.params.id);
+      const posts = await getUsersBlogposts(this.props.match.params.id);
       this.setState({
-        favorites
+        posts
       });
     }
   }
@@ -42,9 +36,6 @@ class UserProfile extends Component {
       <div className="user-profile">
         <div className="user-container">
           <div className="avatar-username">
-            <div
-              className={`avatar-${this.props.userData.avatar}` || "avatar-1"}
-            />{" "}
             <h2> {this.props.userData.username} </h2>{" "}
           </div>{" "}
           <p> Email: {this.props.userData.email} </p>{" "}
@@ -59,15 +50,24 @@ class UserProfile extends Component {
             >
               Edit User{" "}
             </button>{" "}
+            <button
+              className="station-button"
+              onClick={() =>
+                this.props.history.push(
+                  `/user/${this.props.match.params.id}/post/`
+                )
+              }
+            >
+              Add Blog Post{" "}
+            </button>{" "}
           </div>{" "}
-          <h1> User Favorites: </h1>{" "}
-          <StationList
-            className="station-list"
-            stationList={this.state.favorites}
-          />{" "}
+          <h1> User Favorites: </h1>
+          <DisplayUserData />
+          <DisplayList listData={this.state.posts} />
         </div>{" "}
       </div>
     );
   }
 }
+
 export default withRouter(UserProfile);

@@ -18,7 +18,8 @@ import LogoutForm from "./components/LogoutForm";
 import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import decode from "jwt-decode";
-import { registerUser, verifyToken, loginUser } from './services/usersApi'
+import { registerUser, verifyToken, loginUser } from "./services/usersApi";
+import { getCities } from "./services/citiesApi";
 
 import "./App.css";
 
@@ -40,6 +41,7 @@ class App extends Component {
       },
       token: "",
       userData: {},
+      cityList: {},
 
       //below is used for the query bar input
       userInput: "",
@@ -60,6 +62,7 @@ class App extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.getAllCities = this.getAllCities.bind(this);
   }
 
   handleQueryChange = e => {
@@ -138,14 +141,14 @@ class App extends Component {
 
   async handleLogin(e) {
     e.preventDefault();
-    const { userData }= await loginUser(this.state.loginFormData);
+    const { userData } = await loginUser(this.state.loginFormData);
     console.log(userData);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem('authToken')
+      token: localStorage.getItem("authToken")
     });
 
-    this.props.history.push('/users');
+    this.props.history.push("/users");
     // e.preventDefault();
     //const userData = await loginUser(this.state.loginFormData);
     //console.log("userdata from handleLogin", userData);
@@ -234,20 +237,26 @@ class App extends Component {
       }
     }));
   }
-
+  async getAllCities() {
+    const cityList = await getCities();
+    console.log("this is CITYLIST in APP.JS:", cityList);
+    this.setState((prevState, newState) => ({
+      cityList: cityList
+    });
+  }
   async componentDidMount() {
-    //await this.getQueryBarData();
+    await this.getAllCities;
     try {
       const { user } = await verifyToken();
       if (user !== undefined) {
         this.setState({
           currentUser: user
-        })
+        });
       } else {
-        this.props.history.push('/');
+        this.props.history.push("/");
       }
     } catch (e) {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
     // const checkUser = localStorage.getItem("jwt");
     // if (checkUser) {

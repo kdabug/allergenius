@@ -10,7 +10,8 @@ const QueryBar = props => {
     filteredOptions,
     showOptions,
     userInput,
-    onSubmit
+    onSubmit,
+    placeHolder
   } = props;
   let optionList;
   if (showOptions && userInput) {
@@ -57,7 +58,7 @@ const QueryBar = props => {
             onSubmit={onSubmit && onClick}
             name="userInput"
             autoComplete="off"
-            placeholder="search city, country, allergen, or language"
+            placeholder={placeHolder}
           />
         </form>
       </div>

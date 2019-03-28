@@ -66,7 +66,7 @@ const Blogpost = sequelize.define('blogposts', {
   content: { type: Sequelize.TEXT, allowNull: false},
 })
 
-const UserAllergy = sequelize.define('userallergies', {});
+const UserAllergy = sequelize.define('userallergies');
 
 
 User.belongsToMany(Allergy, {through: UserAllergy});
@@ -77,15 +77,6 @@ Review.belongsTo(User);
 
 Review.hasMany(Allergy);
 Allergy.belongsTo(Review);
-
-Restaurant.hasMany(Review);
-Review.belongsTo(Restaurant);
-
-City.hasMany(Restaurant);
-Restaurant.belongsTo(City);
-
-Country.hasMany(City);
-City.belongsTo(Country);
 
 Country.belongsToMany(Language, {through: CountryLanguage});
 Language.belongsToMany(Country, {through: CountryLanguage});
@@ -100,6 +91,7 @@ Blogpost.belongsTo(Country);
 module.exports = {
   User,
   Allergy,
+  UserAllergy,
   Review,
   Restaurant,
   City,

@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter);
 app.use('/allergies', allergiesRouter);
 app.use('/blogposts', blogpostsRouter);
-app.use('/countriesRouter', countriesRouter);
+app.use('/countries', countriesRouter);
 app.use('/cities', citiesRouter)
 
 app.get('/languages', async (req,res) => {

@@ -50,18 +50,22 @@ blogpostsRouter.get('/user/:user_id', async (req, res) => {
   }
 })
 
-/*get a country's blogposts
+//get a country's blogposts
 blogpostsRouter.get('/country/:country_id', async (req, res) => {
   try {
     const {country_id} = req.params;
     const country = await Country.findOne({where: {id: country_id}});
-    const resp = await country.getBlogposts().then(resp => resp);
-    res.json(resp);
+    const cities = await country.getCities();
+    const blogposts = await Promise.all(cities.map(async function (city) {
+      let blogpost = city.getBlogposts().then(blogpost => blogpost);
+      return blogpost
+    }));
+    res.json(blogposts)
   } catch (e) {
     console.error(e);
     res.status(403);
   }
-})*/
+})
 
 //get a city's blogposts
 blogpostsRouter.get('/city/:city_id', async (req, res) => {

@@ -78,6 +78,9 @@ Review.belongsTo(User);
 Review.hasMany(Allergy);
 Allergy.belongsTo(Review);
 
+Country.hasMany(City);
+City.belongsTo(Country);
+
 Country.belongsToMany(Language, {through: CountryLanguage});
 Language.belongsToMany(Country, {through: CountryLanguage});
 

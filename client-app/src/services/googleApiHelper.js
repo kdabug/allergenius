@@ -16,9 +16,9 @@ const speechAPI = axios.create({
 async function getTranslation (q, target) {
   try {
     let translationRequest = {
-        q,
+        q: q,
         source: "en",
-        target
+        target: target
       };
       let resp = await translationAPI.post("", translationRequest);
       return resp.data.data.translations[0].translatedText; //returns just the translated string
@@ -47,7 +47,7 @@ async function speak (text, languageCode) {
   }
 }
 
-module.exports = {
+export {
   speak,
   getTranslation
 }

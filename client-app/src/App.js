@@ -19,6 +19,7 @@ import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import AddBlogPost from "./components/AddBlogPost";
 import decode from "jwt-decode";
+import { getTranslation, speak} from './services/googleApiHelper';
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 

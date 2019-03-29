@@ -7,7 +7,7 @@ import ExploreHome from "./components/ExploreHome";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import PlacesHome from "./components/PlacesHome";
-import DisplayPlace from "./components/DisplayPlace";
+import DisplayPlaceData from "./components/DisplayPlaceData";
 import About from "./components/About";
 import Privacy from "./components/Privacy";
 import Faq from "./components/FAQ";
@@ -17,8 +17,10 @@ import DisplayFoodAllergen from "./components/DisplayFoodAllergen";
 import LogoutForm from "./components/LogoutForm";
 import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
+import AddBlogPost from "./components/AddBlogPost";
 import decode from "jwt-decode";
-import { registerUser, verifyToken, loginUser } from './services/usersApi'
+import { registerUser, verifyToken, loginUser } from "./services/usersApi";
+import { getCities } from "./services/citiesApi";
 
 import "./App.css";
 
@@ -40,6 +42,9 @@ class App extends Component {
       },
       token: "",
       userData: {},
+      cityList: {},
+      countryList: {},
+      languageList: {},
 
       //below is used for the query bar input
       userInput: "",
@@ -58,8 +63,11 @@ class App extends Component {
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLoginToggle = this.handleLoginToggle.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.getAllCities = this.getAllCities.bind(this);
+    this.getAllCountries = this.getAllCountries.bind(this);
+    this.getAllLanguages = this.getAllLanguages.bind(this);
   }
 
   handleQueryChange = e => {
@@ -138,14 +146,14 @@ class App extends Component {
 
   async handleLogin(e) {
     e.preventDefault();
-    const { userData }= await loginUser(this.state.loginFormData);
+    const { userData } = await loginUser(this.state.loginFormData);
     console.log(userData);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem('authToken')
+      token: localStorage.getItem("authToken")
     });
 
-    this.props.history.push('/users');
+    this.props.history.push("/users");
     // e.preventDefault();
     //const userData = await loginUser(this.state.loginFormData);
     //console.log("userdata from handleLogin", userData);
@@ -161,7 +169,7 @@ class App extends Component {
     //localStorage.setItem("jwt", userData.data.token);
   }
 
-  handleLoginClick(e) {
+  handleLoginToggle(e) {
     e.preventDefault();
     this.setState((prevState, newState) => ({
       toggleLogin: !prevState.toggleLogin
@@ -235,19 +243,43 @@ class App extends Component {
     }));
   }
 
+  async getAllCities() {
+    const cityList = await getCities();
+    console.log("this is CITYLIST in APP.JS:", cityList);
+    this.setState((prevState, newState) => ({
+      cityList: cityList
+    }));
+  }
+  async getAllLanguages() {
+    const languageList = await getCities();
+    console.log("this is LANGUAGELIST in APP.JS:", languageList);
+    this.setState((prevState, newState) => ({
+      languageList: languageList
+    }));
+  }
+  async getAllCountries() {
+    const countryList = await getCities();
+    console.log("this is countryList in APP.JS:", countryList);
+    this.setState((prevState, newState) => ({
+      countryList: countryList
+    }));
+  }
+
   async componentDidMount() {
-    //await this.getQueryBarData();
+    await this.getAllCities;
+    await this.getAllLanguages;
+    await this.getAllCountries;
     try {
       const { user } = await verifyToken();
       if (user !== undefined) {
         this.setState({
           currentUser: user
-        })
+        });
       } else {
-        this.props.history.push('/');
+        this.props.history.push("/");
       }
     } catch (e) {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
     // const checkUser = localStorage.getItem("jwt");
     // if (checkUser) {
@@ -283,6 +315,7 @@ class App extends Component {
                   userInput={this.state.userInput}
                   filteredOptions={this.state.filteredOptions}
                   activeOptions={this.state.activeOption}
+                  placeHolder="search by city, country or allergen'"
                 />
               </div>
               <ExploreHome />
@@ -302,26 +335,23 @@ class App extends Component {
                 onSubmit={this.handleLogin}
                 email={this.state.loginFormData.email}
                 password={this.state.loginFormData.password}
-                onClick={this.handleLoginClick}
+                onClick={this.handleLoginToggle}
               />
               <RegisterForm
                 {...props}
                 userData={""}
                 title={"Register User"}
-                onClick={this.handleLoginClick}
+                onClick={this.handleLoginToggle}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
                 username={this.state.registerFormData.username}
                 email={this.state.registerFormData.email}
-                avatar={this.state.registerFormData.avatar}
-                isLocal={this.state.registerFormData.isLocal}
                 password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
                 passwordAsk={"y"}
-                toggleLocal={this.state.handleToggleLocalRegister}
               />
             </>
           )}
@@ -335,7 +365,7 @@ class App extends Component {
                 {...props}
                 userData={""}
                 title={"Register User"}
-                onClick={this.handleLoginClick}
+                onClick={() => this.props.history.push(`/login`)}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
@@ -367,16 +397,23 @@ class App extends Component {
           exact
           path="/user/:id/username/:username"
           render={props => (
-            <UserProfile
-              {...props}
-              userData={this.state.userData}
-              stationData={this.state.stationData}
-            />
+            <UserProfile {...props} userData={this.state.userData} />
+          )}
+        />
+        <Route
+          exact
+          path="/user/:id/post"
+          render={props => (
+            <AddBlogPost {...props} userData={this.state.userData} />
           )}
         />
         <Route exact path="/contact" render={() => <Contact />} />
         <Route exact path="/places" render={() => <PlacesHome />} />
-        <Route exact path="/places/:place_id" render={() => <DisplayPlace />} />
+        <Route
+          exact
+          path="/places/:place_id"
+          render={() => <DisplayPlaceData />}
+        />
         <Route
           exact
           path="/logout"

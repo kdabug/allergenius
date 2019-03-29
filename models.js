@@ -44,22 +44,24 @@ const Restaurant = sequelize.define('restaurants', {
 });
 
 const City = sequelize.define('cities', {
+  id: { type: Sequelize.INTEGER, primaryKey: true},
   name: { type: Sequelize.STRING, allowNull: false},
 });
 
 const Country = sequelize.define('countries', {
+  id: { type: Sequelize.INTEGER, primaryKey: true},
+  code: { type: Sequelize.STRING, allowNull: true},
   name: { type: Sequelize.STRING, allowNull: false},
 });
 
 const Language = sequelize.define('languages', {
-  name: { type: Sequelize.STRING, allowNull: false},
-  gCode: { type: Sequelize.STRING, allowNull: true},
+  id: { type: Sequelize.INTEGER, primaryKey: true},
+  language: { type: Sequelize.STRING, allowNull: false},
+  translation_tag: { type: Sequelize.STRING, allowNull: true},
+  spoken_tag: { type: Sequelize.STRING, allowNull: true},
 });
 
-const CountryLanguage = sequelize.define('countrylanguages', {
-  name: { type: Sequelize.STRING, allowNull: false},
-  isofficial: { type: Sequelize.BOOLEAN, allowNull: true},
-});
+const CountryLanguage = sequelize.define('countrylanguages');
 
 const Blogpost = sequelize.define('blogposts', {
   title: { type: Sequelize.STRING, allowNull: false},

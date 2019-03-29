@@ -70,6 +70,7 @@ const main = async () => {
     password_digest: 'testpass'
   })
 
+/*
 //creating country 'Japan', city 'Tokyo'
   const tokyo = await City.create({
     name: 'Tokyo',
@@ -86,7 +87,7 @@ const main = async () => {
   })
   await japan_blogpost.setCity(tokyo);
   await japan_blogpost.setUser(user0);
-
+*/
 
 
   process.exit();

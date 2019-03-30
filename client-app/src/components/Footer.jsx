@@ -10,6 +10,7 @@ const Footer = props => {
         <Link to="/FAQ">FAQ</Link>
         <Link to="/contact">Contact Us</Link>
       </nav>
+      <img className="allergyLogo" src="https://i.imgur.com/ipxHrno.png"></img> 
     </div>
   );
 };

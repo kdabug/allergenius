@@ -1,0 +1,61 @@
+.Main-app-body {
+  background-color: #efefef;
+  text-align: center;
+}
+
+.header {
+  background-image: url("https://indiasignaturetour.com/wp-content/uploads/2018/09/asian-food-beans-cuisine-618491.jpg");
+  width: 1440px;
+  height: 600px;
+  margin-top: 0;
+}
+
+nav {
+  font-size: 32px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  list-style-type: none;
+	margin: 0;
+	padding: 20px;
+	text-align: center;
+  text-decoration: none;
+	text-transform: normal;
+	letter-spacing: normal;
+  line-height: 1.3em;
+  display: flex;
+  justify-content: space-around;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.main-title {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.44;
+  letter-spacing: -0.6px;
+}
+
+.footer {
+  background-color: #173e43;
+  color: white;
+  text-decoration: none;
+  width: 1440px;
+  height: 360px;
+  text-align: center;
+}
+
+.allergyLogo {
+  position: relative;
+  right: 530px;
+  top: 50px;
+}

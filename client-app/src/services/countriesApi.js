@@ -45,7 +45,7 @@ const postCountry = async (name) => {
 
 const postCity = async (name, countryId) => {
   try {
-    const resp = await api.post(`/countriesRouter/${countryId}/cities/`, {
+    const resp = await api.post(`/countries/${countryId}/cities/`, {
       name,
     })
     const { data } = resp;

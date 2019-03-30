@@ -2,12 +2,14 @@ let api_key = process.env.REACT_APP_API_KEY;
 let axios = require('axios');
 
 const translationAPI = axios.create({
-  baseURL: 'https://translation.googleapis.com/language/translate/v2?key=' + api_key
+  baseURL: `https://translation.googleapis.com/language/translate/v2?key=${api_key}`
 });
 
 const speechAPI = axios.create({
-  baseURL: "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + api_key
+  baseURL: `https://texttospeech.googleapis.com/v1/text:synthesize?key=${api_key}`
 })
+
+
 
 //q is the phrase being translated, target is Google's code for the target language
 /*
@@ -21,11 +23,14 @@ async function getTranslation (q, target) {
         target: target
       };
       let resp = await translationAPI.post("", translationRequest);
+      console.log(resp.data.data.translations[0].translatedText);
       return resp.data.data.translations[0].translatedText; //returns just the translated string
   } catch(e) {
     console.error(e);
   }
 }
+
+
 
 //speak returns base-64 encoded MP3 data,
 //languageCode is a second foreign language identifier
@@ -47,7 +52,8 @@ async function speak (text, languageCode) {
   }
 }
 
+
 export {
   speak,
-  getTranslation
+  getTranslation,
 }

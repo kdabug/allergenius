@@ -1,4 +1,4 @@
-const { User, Country, Blogpost, Allergy, CountryLanguage, Language, UserAllergy, City} = require('./models')
+const { User, Country, Blogpost, Allergy, CountryLanguage, Language, UserAllergy, City, sequelize} = require('./models')
 
 const main = async () => {
   await Allergy.destroy({
@@ -31,37 +31,44 @@ const main = async () => {
 
   const peanut = await Allergy.create({
     name: "peanut",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const nuts = await Allergy.create({
     name: "nuts",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const shellfish = await Allergy.create({
     name: "shellfish",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const fish = await Allergy.create({
     name: "fish",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const dairy = await Allergy.create({
     name: "dairy",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const eggs = await Allergy.create({
     name: "eggs",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const wheat = await Allergy.create({
     name: "wheat",
-    icon: 'Here'
+    icon: 'Here',
+    attribution_text: ""
   });
 
   const user0 = await User.create({
@@ -69,6 +76,33 @@ const main = async () => {
     email: 'email@email.com',
     password_digest: 'testpass'
   })
+
+  let current_path = __dirname;
+  let resp = await sequelize.query("ALTER TABLE languages DROP COLUMN created_at");
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE languages DROP COLUMN updated_at");
+  console.log(resp);
+  resp = await sequelize.query(`COPY languages(language,id,translation_tag,spoken_tag) from '${current_path}/data/language_final.csv' DELIMITER ',' CSV HEADER`);
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE countries DROP COLUMN created_at");
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE countries DROP COLUMN updated_at");
+  console.log(resp);
+  resp = await sequelize.query(`COPY countries(id,code,name) from '${current_path}/data/country_final.csv' DELIMITER ',' CSV HEADER`);
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE cities DROP COLUMN created_at");
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE cities DROP COLUMN updated_at");
+  console.log(resp);
+  resp = await sequelize.query(`COPY cities(id,name,country_id) from '${current_path}/data/city_final.csv' DELIMITER ',' CSV HEADER`);
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE countrylanguages DROP COLUMN created_at");
+  console.log(resp);
+  resp = await sequelize.query("ALTER TABLE countrylanguages DROP COLUMN updated_at");
+  console.log(resp);
+  resp = await sequelize.query(`COPY countrylanguages(country_id,language_id) from '${current_path}/data/countrylanguage_final.csv' DELIMITER ',' CSV HEADER`);
+  console.log(resp);
+
 
 /*
 //creating country 'Japan', city 'Tokyo'
@@ -88,6 +122,7 @@ const main = async () => {
   await japan_blogpost.setCity(tokyo);
   await japan_blogpost.setUser(user0);
 */
+
 
 
   process.exit();

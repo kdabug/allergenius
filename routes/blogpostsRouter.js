@@ -24,11 +24,10 @@ blogpostsRouter.get('/', async (req, res) => {
 blogpostsRouter.post('/user/:user_id', async (req, res) => {
   try {
     const {user_id} = req.params;
-    const {cityId, title, content} = req.body;
+    const {cityId, name} = req.body;
     const resp = await Blogpost.create({
       cityId,
-      title,
-      content,
+      name,
       userId: user_id});
     res.json(resp);
   } catch (e) {

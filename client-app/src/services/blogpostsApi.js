@@ -7,11 +7,10 @@ async function getBlogposts() {
 }
 
 //create a blogPost ... make sure you pass user_id and countryId
-async function createBlogpost(user_id, cityId, title, content) {
+async function createBlogpost(user_id, cityId, name) {
   let resp = await api.post("/blogposts/user/" + user_id, {
     cityId,
-    title,
-    content
+    name,
   });
   return resp.data;
 }

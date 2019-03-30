@@ -64,11 +64,15 @@ const Language = sequelize.define('languages', {
 const CountryLanguage = sequelize.define('countrylanguages');
 
 const Blogpost = sequelize.define('blogposts', {
-  title: { type: Sequelize.STRING, allowNull: false},
-  content: { type: Sequelize.TEXT, allowNull: false},
+  name: { type: Sequelize.STRING, allowNull: false},
 })
 
 const UserAllergy = sequelize.define('userallergies');
+
+const Card = sequelize.define('cards', {
+  original: {type: Sequelize.STRING, allowNull: false},
+  translation: {type: Sequelize.STRING, allowNull: false},
+});
 
 
 User.belongsToMany(Allergy, {through: UserAllergy});
@@ -92,6 +96,9 @@ Blogpost.belongsTo(User);
 City.hasMany(Blogpost);
 Blogpost.belongsTo(City);
 
+Blogpost.hasMany(Card);
+Card.belongsTo(Blogpost);
+
 
 module.exports = {
   User,
@@ -104,5 +111,6 @@ module.exports = {
   Language,
   CountryLanguage,
   Blogpost,
+  Card,
   sequelize
 }

@@ -26,6 +26,7 @@ const Header = props => {
           <>
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
+            <Link to="/translate">Translate</Link>
           </>
         )}
       </nav>

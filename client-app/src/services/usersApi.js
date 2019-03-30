@@ -22,13 +22,13 @@ const registerUser = async (user) => {
 };
 
 const verifyToken = async () => {
-  const token = localStorage.getItem('authToken');
+  const token = await localStorage.getItem('authToken');
   if (token === null) {
+    console.log("no token");
     return false;
   } else {
-
     try {
-
+      console.log("token verified");
       const resp = await api.get('/users/verify', {
         headers: {
           Authorization: `Bearer ${token}`

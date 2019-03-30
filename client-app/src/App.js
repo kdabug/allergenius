@@ -25,6 +25,7 @@ import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 import { getLanguages } from "./services/languagesApi";
 import { getCountries } from "./services/countriesApi";
+import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
 
@@ -77,6 +78,7 @@ class App extends Component {
     this.getAllCities = this.getAllCities.bind(this);
     this.getAllCountries = this.getAllCountries.bind(this);
     this.getAllLanguages = this.getAllLanguages.bind(this);
+    this.getAllAllergens = this.getAllAllergens.bind(this);
   }
 
   handleQueryChange = e => {

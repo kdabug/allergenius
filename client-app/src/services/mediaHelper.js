@@ -1,4 +1,4 @@
-let api_key = process.env.REACT_APP_PLACES_API_KEY;
+let api_key = process.env.REACT_APP_API_KEY;
 let axios = require('axios');
 async function getMedia (city_string) {
   try {

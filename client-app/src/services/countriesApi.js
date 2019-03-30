@@ -73,4 +73,11 @@ const postCity = async (name, countryId) => {
 // postCountry("darwing")
 // postCity("Tree", 3)
 
-export { getCountry, getCountries, getCountryCities, postCountry, postCity };
+export {
+  getCountry,
+  getCountryLanguages,
+  getCountries,
+  getCountryCities,
+  postCountry,
+  postCity
+};

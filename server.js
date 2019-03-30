@@ -13,6 +13,7 @@ const allergiesRouter = require('./routes/allergiesRouter');
 const blogpostsRouter = require('./routes/blogpostsRouter');
 const countriesRouter = require('./routes/countriesRouter');
 const citiesRouter = require('./routes/citiesRouter');
+const cardsRouter = require('./routes/cardsRouter');
 
 // after importing middleware define app and mount them
 const app = express();
@@ -29,7 +30,8 @@ app.use('/users', usersRouter);
 app.use('/allergies', allergiesRouter);
 app.use('/blogposts', blogpostsRouter);
 app.use('/countries', countriesRouter);
-app.use('/cities', citiesRouter)
+app.use('/cities', citiesRouter);
+app.use('/cards', citiesRouter);
 
 app.get('/languages', async (req,res) => {
   let resp = await Language.findAll().then(resp => resp);

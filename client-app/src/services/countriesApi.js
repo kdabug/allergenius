@@ -2,7 +2,7 @@ const { api } = require('./apiHelper');
 
 const getCountries = async () => {
   try {
-    const resp = await api.get(`/countriesRouter/`);
+    const resp = await api.get(`/countries/`);
     console.log(resp.data);
     return resp.data;
   } catch(e) {
@@ -12,7 +12,7 @@ const getCountries = async () => {
 
 const getCountry = async (countryId) => {
   try {
-    const resp = await api.get(`/countriesRouter/${countryId}`)
+    const resp = await api.get(`/countries/${countryId}`)
     console.log(resp.data);
     return resp.data
   } catch(e) {
@@ -22,7 +22,7 @@ const getCountry = async (countryId) => {
 
 const getCountryCities = async (countryId) => {
   try {
-    const resp = await api.get(`/countriesRouter/${countryId}/cities`)
+    const resp = await api.get(`/countries/${countryId}/cities`)
     console.log(resp.data);
     return resp.data
   } catch(e) {
@@ -32,7 +32,7 @@ const getCountryCities = async (countryId) => {
 
 const postCountry = async (name) => {
   try {
-    const resp = await api.post('/countriesRouter/', {
+    const resp = await api.post('/countries/', {
       name
     });
     const { data } = resp;

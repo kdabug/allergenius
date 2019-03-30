@@ -9,6 +9,8 @@ const speechAPI = axios.create({
   baseURL: `https://texttospeech.googleapis.com/v1/text:synthesize?key=${api_key}`
 })
 
+
+
 //q is the phrase being translated, target is Google's code for the target language
 /*
  ex. getTranslation("Hi, my name is Austin", "es") ==> translates to Spanish
@@ -50,7 +52,8 @@ async function speak (text, languageCode) {
   }
 }
 
+
 export {
   speak,
-  getTranslation
+  getTranslation,
 }

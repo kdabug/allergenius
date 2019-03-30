@@ -32,7 +32,6 @@ app.use("/blogposts", blogpostsRouter);
 app.use("/countries", countriesRouter);
 app.use("/cities", citiesRouter);
 app.use("/cards", citiesRouter);
-app.use("/languages", languagesRouter);
 
 app.get("/languages", async (req, res) => {
   let resp = await Language.findAll().then(resp => resp);

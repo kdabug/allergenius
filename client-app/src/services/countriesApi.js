@@ -1,61 +1,60 @@
-const { api } = require('./apiHelper');
+const { api } = require("./apiHelper");
 
 const getCountries = async () => {
   try {
-    const resp = await api.get(`/countriesRouter/`);
+    const resp = await api.get(`/countries/`);
     console.log(resp.data);
     return resp.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
-  };
+  }
 };
 
-const getCountry = async (countryId) => {
+const getCountry = async countryId => {
   try {
-    const resp = await api.get(`/countriesRouter/${countryId}`)
+    const resp = await api.get(`/countries/${countryId}`);
     console.log(resp.data);
-    return resp.data
-  } catch(e) {
+    return resp.data;
+  } catch (e) {
     console.error(e);
   }
-}
+};
 
-const getCountryCities = async (countryId) => {
+const getCountryCities = async countryId => {
   try {
-    const resp = await api.get(`/countriesRouter/${countryId}/cities`)
+    const resp = await api.get(`/countries/${countryId}/cities`);
     console.log(resp.data);
-    return resp.data
-  } catch(e) {
+    return resp.data;
+  } catch (e) {
     console.error(e);
   }
-}
+};
 
-const postCountry = async (name) => {
+const postCountry = async name => {
   try {
-    const resp = await api.post('/countriesRouter/', {
+    const resp = await api.post("/countries/", {
       name
     });
     const { data } = resp;
     console.log(data);
     return data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
-}
+};
 
 const postCity = async (name, countryId) => {
   try {
-    const resp = await api.post(`/countriesRouter/${countryId}/cities/`, {
-      name,
-    })
+    const resp = await api.post(`/countries/${countryId}/cities/`, {
+      name
+    });
     const { data } = resp;
     console.log(data);
     return data;
-  }
-  catch(e) {
+  } catch (e) {
     console.error(e);
   }
-}
+};
 
 // postCity(":Eric", 3);
 // getCountryCities(3);
@@ -64,10 +63,4 @@ const postCity = async (name, countryId) => {
 // postCountry("darwing")
 // postCity("Tree", 3)
 
-export {
-  getCountry,
-  getCountries,
-  getCountryCities,
-  postCountry,
-  postCity
-}
+export { getCountry, getCountries, getCountryCities, postCountry, postCity };

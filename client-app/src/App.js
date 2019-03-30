@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ExploreHome from "./components/ExploreHome";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import Translate from "./components/Translate";
 import PlacesHome from "./components/PlacesHome";
 import DisplayPlaceData from "./components/DisplayPlaceData";
 import About from "./components/About";
@@ -22,7 +23,9 @@ import decode from "jwt-decode";
 import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
-import { getUserAllergies} from "./services/allergiesApi";
+import { getLanguages } from "./services/languagesApi";
+import { getCountries } from "./services/countriesApi";
+import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
 
 import "./App.css";
@@ -153,7 +156,7 @@ class App extends Component {
     e.preventDefault();
     const { userData } = await loginUser(this.state.loginFormData);
     console.log(userData);
-    const {id} = this.state.userData;
+    const { id } = this.state.userData;
     const userAllergies = await getUserAllergies(id);
     const userTrips = await getUsersBlogposts(id);
     this.setState({
@@ -261,14 +264,14 @@ class App extends Component {
     }));
   }
   async getAllLanguages() {
-    const languageList = await getCities();
+    const languageList = await getLanguages();
     console.log("this is LANGUAGELIST in APP.JS:", languageList);
     this.setState((prevState, newState) => ({
       languageList: languageList
     }));
   }
   async getAllCountries() {
-    const countryList = await getCities();
+    const countryList = await getCountries();
     console.log("this is countryList in APP.JS:", countryList);
     this.setState((prevState, newState) => ({
       countryList: countryList
@@ -276,9 +279,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.getAllCities;
-    await this.getAllLanguages;
-    await this.getAllCountries;
+    this.getAllCities();
+    this.getAllLanguages();
+    this.getAllCountries();
     try {
       const { user } = await verifyToken();
       if (user !== undefined) {

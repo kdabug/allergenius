@@ -2,7 +2,7 @@ const { api } = require("./apiHelper");
 
 const getCountries = async () => {
   try {
-    const resp = await api.get(`/countries/`);
+    const resp = await api.get(`/countries`);
     console.log(resp.data);
     return resp.data;
   } catch (e) {

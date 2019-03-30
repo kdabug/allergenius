@@ -282,18 +282,18 @@ class App extends Component {
     this.getAllCities();
     this.getAllLanguages();
     this.getAllCountries();
-    try {
-      const { user } = await verifyToken();
-      if (user !== undefined) {
-        this.setState({
-          currentUser: user
-        });
-      } else {
-        this.props.history.push("/");
-      }
-    } catch (e) {
-      this.props.history.push("/");
-    }
+    // try {
+    //   const { user } = await verifyToken();
+    //   if (user !== undefined) {
+    //     this.setState({
+    //       currentUser: user
+    //     });
+    //   } else {
+    //     this.props.history.push("/");
+    //   }
+    // } catch (e) {
+    //   this.props.history.push("/");
+    // }
     // const checkUser = localStorage.getItem("jwt");
     // if (checkUser) {
     //   const user = decode(checkUser);

@@ -31,6 +31,16 @@ countriesRouter.get("/:id/cities", async (req, res) => {
     res.status(500).send(e.message);
   }
 });
+countriesRouter.get("/:id/languages", async (req, res) => {
+  try {
+    const country = await Country.findByPk(req.params.id);
+    const languages = await country.getLanguages();
+    res.json({ languages });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e.message);
+  }
+});
 
 countriesRouter.post("/", async (req, res) => {
   try {

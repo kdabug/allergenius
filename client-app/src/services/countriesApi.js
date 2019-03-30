@@ -30,6 +30,16 @@ const getCountryCities = async countryId => {
   }
 };
 
+const getCountryLanguages = async countryId => {
+  try {
+    const resp = await api.get(`/countries/${countryId}/languages`);
+    console.log(resp.data);
+    return resp.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const postCountry = async name => {
   try {
     const resp = await api.post("/countries/", {

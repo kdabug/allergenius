@@ -77,30 +77,30 @@ const main = async () => {
     password_digest: 'testpass'
   })
 
-
+  let current_path = __dirname;
   let resp = await sequelize.query("ALTER TABLE languages DROP COLUMN created_at");
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE languages DROP COLUMN updated_at");
   console.log(resp);
-  resp = await sequelize.query("COPY languages(language,id,translation_tag,spoken_tag) from '/Users/austinfritz/Documents/allergenius/data/language_final.csv' DELIMITER ',' CSV HEADER");
+  resp = await sequelize.query(`COPY languages(language,id,translation_tag,spoken_tag) from '${current_path}/data/language_final.csv' DELIMITER ',' CSV HEADER`);
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE countries DROP COLUMN created_at");
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE countries DROP COLUMN updated_at");
   console.log(resp);
-  resp = await sequelize.query("COPY countries(id,code,name) from '/Users/austinfritz/Documents/allergenius/data/country_final.csv' DELIMITER ',' CSV HEADER");
+  resp = await sequelize.query(`COPY countries(id,code,name) from '${current_path}/data/country_final.csv' DELIMITER ',' CSV HEADER`);
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE cities DROP COLUMN created_at");
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE cities DROP COLUMN updated_at");
   console.log(resp);
-  resp = await sequelize.query("COPY cities(id,name,country_id) from '/Users/austinfritz/Documents/allergenius/data/city_final.csv' DELIMITER ',' CSV HEADER");
+  resp = await sequelize.query(`COPY cities(id,name,country_id) from '${current_path}/data/city_final.csv' DELIMITER ',' CSV HEADER`);
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE countrylanguages DROP COLUMN created_at");
   console.log(resp);
   resp = await sequelize.query("ALTER TABLE countrylanguages DROP COLUMN updated_at");
   console.log(resp);
-  resp = await sequelize.query("COPY countrylanguages(country_id,language_id) from '/Users/austinfritz/Documents/allergenius/data/countrylanguage_final.csv' DELIMITER ',' CSV HEADER");
+  resp = await sequelize.query(`COPY countrylanguages(country_id,language_id) from '${current_path}/data/countrylanguage_final.csv' DELIMITER ',' CSV HEADER`);
   console.log(resp);
 
 

@@ -22,6 +22,8 @@ import decode from "jwt-decode";
 import { getTranslation, speak} from './services/googleApiHelper';
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
+import { getUserAllergies} from "./services/allergiesApi";
+import { getUsersBlogposts } from "./services/blogpostsApi";
 
 import "./App.css";
 
@@ -43,6 +45,8 @@ class App extends Component {
       },
       token: "",
       userData: {},
+      userAllergies: {},
+      userTrips: {},
       cityList: {},
       countryList: {},
       languageList: {},
@@ -149,9 +153,14 @@ class App extends Component {
     e.preventDefault();
     const { userData } = await loginUser(this.state.loginFormData);
     console.log(userData);
+    const {id} = this.state.userData;
+    const userAllergies = await getUserAllergies(id);
+    const userTrips = await getUsersBlogposts(id);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem("authToken")
+      token: localStorage.getItem("authToken"),
+      userAllergies,
+      userTrips
     });
 
     this.props.history.push("/users");

@@ -55,6 +55,7 @@ class App extends Component {
       languageList: {},
 
       //below is used for the query bar input
+      currentQuery:'',
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -83,7 +84,7 @@ class App extends Component {
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
     const filteredOptions = autocompleteOptions.filter(
-      option => option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      element => element.option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({
@@ -101,12 +102,12 @@ class App extends Component {
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    const currentStation = this.state.stationData.filter(
-      station => station.name + " " + station.lines === userInput
+    const currentQuery = this.state.autocompleteOptions.filter(
+      element => element.option === userInput
     );
 
     await this.setState((prevState, newState) => ({
-      currentStation: currentStation,
+      currentQuery: currentQuery,
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
@@ -116,11 +117,7 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
-    console.log(
-      "this is handlequeryclick: this.state.currentStation",
-      this.state.currentStation
-    );
-    this.props.history.push(`/stations/${this.state.currentStation[0].id}`);
+    this.props.history.push(`/${listType}/${this.state.currentQuery[0].id}`);
   }
 
   handleQueryKeyDown = e => {
@@ -258,6 +255,7 @@ class App extends Component {
 
   async getAllCities() {
     const cityList = await getCities();
+    const cityAutoComplete
     console.log("this is CITYLIST in APP.JS:", cityList);
     this.setState((prevState, newState) => ({
       cityList: cityList
@@ -274,6 +272,11 @@ class App extends Component {
     const countryList = await getCountries();
     console.log("this is countryList in APP.JS:", countryList);
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions + countryList.map(country => {
+        return(
+          {list: 'countryList', 
+          option: country.name})
+    }),
       countryList: countryList
     }));
   }
@@ -282,6 +285,7 @@ class App extends Component {
     this.getAllCities();
     this.getAllLanguages();
     this.getAllCountries();
+console.log('autocompleteOptions', autocompleteOptions)
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {

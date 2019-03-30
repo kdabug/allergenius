@@ -56,5 +56,4 @@ async function speak (text, languageCode) {
 export {
   speak,
   getTranslation,
-  getMedia
 }

@@ -55,7 +55,7 @@ class App extends Component {
       languageList: {},
 
       //below is used for the query bar input
-      currentQuery:'',
+      currentQuery: "",
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -84,7 +84,8 @@ class App extends Component {
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
     const filteredOptions = autocompleteOptions.filter(
-      element => element.option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      element =>
+        element.option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({
@@ -117,7 +118,9 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
-    this.props.history.push(`/${listType}/${this.state.currentQuery[0].id}`);
+    this.props.history.push(
+      `/${this.state.currentQuery[0].list}/${this.state.currentQuery[0].option}`
+    );
   }
 
   handleQueryKeyDown = e => {
@@ -252,31 +255,45 @@ class App extends Component {
       }
     }));
   }
-
+  async getAllAllergens() {
+    const allergyList = await getAllergies();
+    console.log("this is allergy data", allergyList);
+    const allergyOpt = allergyList.map(allergy => {
+      return allergy.name;
+    });
+    this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(allergyOpt),
+      allergyList: allergyList
+    }));
+    console.log("autocompleteOptions", this.state.autocompleteOptions);
+  }
   async getAllCities() {
     const cityList = await getCities();
-    const cityAutoComplete
-    console.log("this is CITYLIST in APP.JS:", cityList);
+    const cityOpt = cityList.cities.map(city => {
+      return city.name;
+    });
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(cityOpt),
       cityList: cityList
     }));
   }
   async getAllLanguages() {
     const languageList = await getLanguages();
-    console.log("this is LANGUAGELIST in APP.JS:", languageList);
+    const languagesOpt = languageList.map(element => {
+      return element.language;
+    });
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(languagesOpt),
       languageList: languageList
     }));
   }
   async getAllCountries() {
     const countryList = await getCountries();
-    console.log("this is countryList in APP.JS:", countryList);
+    const countryOpt = countryList.countries.map(country => {
+      return country.name;
+    });
     this.setState((prevState, newState) => ({
-      autocompleteOptions: prevState.autocompleteOptions + countryList.map(country => {
-        return(
-          {list: 'countryList', 
-          option: country.name})
-    }),
+      autocompleteOptions: prevState.autocompleteOptions.concat(countryOpt),
       countryList: countryList
     }));
   }
@@ -285,7 +302,7 @@ class App extends Component {
     this.getAllCities();
     this.getAllLanguages();
     this.getAllCountries();
-console.log('autocompleteOptions', autocompleteOptions)
+    this.getAllAllergens();
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {

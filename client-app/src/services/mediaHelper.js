@@ -11,4 +11,6 @@ async function getMedia (city_string) {
     console.error(e);
   }
 }
+
+
 export default getMedia;

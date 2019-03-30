@@ -23,5 +23,5 @@ const makeBlogpostCard = async (blogpost_id, original, translation) => {
 
 export {
   getBlogpostCards,
-  makeBlogpostCards
+  makeBlogpostCard
 }

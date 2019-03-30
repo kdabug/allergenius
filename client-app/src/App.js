@@ -19,7 +19,7 @@ import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import AddBlogPost from "./components/AddBlogPost";
 import decode from "jwt-decode";
-import { getTranslation, speak} from './services/googleApiHelper';
+import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 
@@ -392,7 +392,7 @@ class App extends Component {
         <Route
           exact
           path="/food-allergens/:allergen_id"
-          render={() => <DisplayFoodAllergen />}
+          render={() => <Translate />}
         />
         <Route
           exact
@@ -410,11 +410,7 @@ class App extends Component {
         />
         <Route exact path="/contact" render={() => <Contact />} />
         <Route exact path="/places" render={() => <PlacesHome />} />
-        <Route
-          exact
-          path="/places/:place_id"
-          render={() => <DisplayPlaceData />}
-        />
+        <Route exact path="/places/:place_id" render={() => <Translate />} />
         <Route
           exact
           path="/logout"

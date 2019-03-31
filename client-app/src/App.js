@@ -28,7 +28,6 @@ import { getCountries } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
-import Translate from './components/Translate'
 
 import "./App.css";
 
@@ -287,6 +286,7 @@ class App extends Component {
   }
   async getAllCities() {
     const cityList = await getCities();
+    console.log(cityList);
     const cityOpt = cityList.cities.map(city => {
       return city.name;
     });

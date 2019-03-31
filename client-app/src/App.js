@@ -384,7 +384,7 @@ class App extends Component {
                   userInput={this.state.userInput}
                   filteredOptions={this.state.filteredOptions}
                   activeOptions={this.state.activeOption}
-                  placeHolder="Search by city, country or allergen"
+                  placeHolder="Search by city, country, language or allergen"
                 />
               </div>
 
@@ -530,12 +530,14 @@ class App extends Component {
           exact
           path="/translate"
           render={props => (
-            <Translate {...props}
-            translationRoute={true}
-            allergies={this.state.allergyList}
-            relevantLanguages={this.state.languageList}
-            userAllergies={this.state.userAllergies}
-            currentUser={this.state.currentUser} />
+            <Translate
+              {...props}
+              translationRoute={true}
+              allergies={this.state.allergyList}
+              relevantLanguages={this.state.languageList}
+              userAllergies={this.state.userAllergies}
+              currentUser={this.state.currentUser}
+            />
           )}
         />
         <Footer />

@@ -317,10 +317,10 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    this.getAllCities();
-    this.getAllLanguages();
-    this.getAllCountries();
-    this.getAllAllergens();
+    await this.getAllCities();
+    await this.getAllLanguages();
+    await this.getAllCountries();
+    await this.getAllAllergens();
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {

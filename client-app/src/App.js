@@ -381,7 +381,7 @@ class App extends Component {
                   userInput={this.state.userInput}
                   filteredOptions={this.state.filteredOptions}
                   activeOptions={this.state.activeOption}
-                  placeHolder="search by city, country or allergen'"
+                  placeHolder="Search by city, country or allergen"
                 />
               </div>
 

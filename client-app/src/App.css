@@ -4,8 +4,10 @@
 
 .Main-app-body {
   background-color: #efefef;
-  /* text-align: center; */
-  font-family: sans-serif;
+}
+
+input:focus {
+  outline: none;
 }
 
 .header {
@@ -13,7 +15,9 @@
   width: 100%;
   min-height: 702px;
   margin-top: 0;
+  z-index: 0;
 }
+
 
 nav {
   font-size: 32px;
@@ -35,6 +39,39 @@ nav {
 .header-nav a {
   padding: 10px;
   margin-right: 30px;
+}
+
+.header-container {
+  position: absolute;
+  top: 200px;
+  left: 100px;
+  color: white;
+}
+
+.search-box {
+  height: 51px;
+  width: 500px;
+  font-size: 28px;
+  z-index: 2;
+}
+
+.options-container {
+  background-color: white;
+}
+
+.options {
+  color: black;
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+.options li {
+  border-bottom: 1px solid #979797;
+  padding: 2px 0 2px 0;
+}
+
+.main-title {
+  font-size: 50px;
 }
 
 .sign {
@@ -151,6 +188,69 @@ form img {
   font-stretch: normal;
   line-height: 0.44;
   letter-spacing: -0.6px;
+}
+
+.explore-home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+.explore-home-container h1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  align-self: flex-start;
+  justify-self: left;
+  margin-left: 50px;
+  margin-bottom: 100px;
+}
+
+.preset-cities-container {
+  border: 5px solid black;
+  width: 500px;
+  border: 1px solid #979797;
+  border-radius: 7px;
+  background: white;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 200px;
+  height: auto;
+}
+
+.preset-cities-container h2 {
+  font-size: 31px;
+  color: var(--dark-blue-grey);
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: var(--dark-blue-grey);
+  border-radius: 100%;
+  position: relative;
+  left: 200px;
+  top: -50px;
+}
+
+.preset-cities-container h2 {
+  align-self: center;
+}
+
+.city-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  color: black;
+  padding: 0 25px 10px 25px;
+}
+
+.city-container a {
+  color: black;
+  font-size: 29px;
+  width: 200px;
 }
 
 .footer {

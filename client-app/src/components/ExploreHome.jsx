@@ -34,8 +34,9 @@ class ExploreHome extends React.Component {
       <>
         {!this.state.fetchingMedia && (
           <div className="explore-home-container">
-            <h1>Explore Home</h1>
+            <h1>Explore Allergenius</h1>
             <div className="preset-cities-container">
+            <div className="circle"></div>
               <h2>Places</h2>
               <div>
                 <Icon url={this.state.mediaArray[0]} id="places-icon" />
@@ -54,7 +55,7 @@ class ExploreHome extends React.Component {
                 <Link to={"/places-cities/Rio De Janiero/"}>
                   Rio De Janiero, Brazil
                 </Link>
-              </div>
+              </div>*/}
             </div>
             <>
               <div className="preset-allergens-container">

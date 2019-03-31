@@ -50,13 +50,12 @@ class App extends Component {
       },
       token: "",
       userData: {},
-      userAllergies: {},
-      userTrips: {},
-      cityList: {},
-      countryList: {},
-      languageList: {},
-
-      //below is used for the query bar input
+      userAllergies: [],
+      userTrips: [],
+      cityList: [],
+      countryList: [],
+      languageList: [],
+      allergyList: [],
       currentQuery: "",
       userInput: "",
       autocompleteOptions: [],
@@ -385,7 +384,7 @@ class App extends Component {
                   userInput={this.state.userInput}
                   filteredOptions={this.state.filteredOptions}
                   activeOptions={this.state.activeOption}
-                  placeHolder="search by city, country or allergen'"
+                  placeHolder="Search by city, country or allergen"
                 />
               </div>
 
@@ -466,7 +465,7 @@ class App extends Component {
             <Translate
               {...props}
               userData={this.state.userData}
-              currentQuery={this.state.currentQuery}
+              allergyQuery={this.state.currentQuery}
             />
           )}
         />
@@ -493,7 +492,7 @@ class App extends Component {
             <Translate
               {...props}
               userData={this.state.userData}
-              currentQuery={this.state.currentQuery}
+              cityQuery={this.state.currentQuery}
             />
           )}
         />
@@ -504,7 +503,7 @@ class App extends Component {
             <Translate
               {...props}
               userData={this.state.userData}
-              currentQuery={this.state.currentQuery}
+              countryQuery={this.state.currentQuery}
             />
           )}
         />
@@ -515,7 +514,8 @@ class App extends Component {
             <Translate
               {...props}
               userData={this.state.userData}
-              currentQuery={this.state.currentQuery}
+              userAllergies={this.state.userAllergies}
+              languageQuery={this.state.currentQuery}
             />
           )}
         />
@@ -530,7 +530,12 @@ class App extends Component {
           exact
           path="/translate"
           render={props => (
-            <Translate {...props} currentUser={this.state.currentUser} />
+            <Translate {...props}
+            translationRoute={true}
+            allergies={this.state.allergyList}
+            relevantLanguages={this.state.languageList}
+            userAllergies={this.state.userAllergies}
+            currentUser={this.state.currentUser} />
           )}
         />
         <Footer />

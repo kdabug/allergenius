@@ -108,19 +108,19 @@ class App extends Component {
       element => element === userInput
     );
     const currentQuery =
-      this.state.countryList.countries.map(element => {
+      this.state.countryList.countries.filter(element => {
         if (element.name === query)
           return { data: element, route: "places-country" };
       }) ||
-      this.state.allergyList.map(element => {
+      this.state.allergyList.filter(element => {
         if (element.name === query)
           return { data: element, route: "food-allergy" };
       }) ||
-      this.state.cityList.cities.map(element => {
+      this.state.cityList.cities.filter(element => {
         if (element.name === query)
           return { data: element, route: "places-city" };
       }) ||
-      this.state.languageList.map(element => {
+      this.state.languageList.filter(element => {
         if (element.language === query)
           return { data: element, route: "language" };
       });
@@ -135,8 +135,14 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
+    console.log(
+      "this is handlequeryclick: this.state.currentQuery",
+      currentQuery
+    );
     this.props.history.push(
-      `/${this.state.currentQuery[0].list}/${this.state.currentQuery[0].option}`
+      `/${this.state.currentQuery[0].route}/${
+        this.state.currentQuery[0].data.id
+      }`
     );
   }
 

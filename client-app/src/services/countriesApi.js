@@ -58,6 +58,7 @@ const postCity = async (name, countryId) => {
     const resp = await api.post(`/countries/${countryId}/cities/`, {
       name
     });
+
     const { data } = resp;
     console.log(data);
     return data;

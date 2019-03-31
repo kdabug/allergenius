@@ -28,6 +28,7 @@ import { getCountries } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
+import Translate from './components/Translate'
 
 import "./App.css";
 
@@ -500,6 +501,11 @@ class App extends Component {
           render={props => (
             <LogoutForm {...props} handleLogout={this.handleLogout} />
           )}
+        />
+        <Route exact path="/translate"
+        render={props => (
+          <Translate {...props} currentUser={this.state.currentUser} />
+        )}
         />
         <Footer />
       </div>

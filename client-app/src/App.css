@@ -152,3 +152,41 @@ h1 {
   height: 200px;
   width: 200px;
 }
+.places-icon {
+}
+.peanuts {
+  background-image: url(./media/noun_peanuts_1044368.png);
+  height: 200px;
+  width: 200px;
+  background-size: contain;
+}
+.shellfish {
+  background-image: url(./media/noun_shellfish_2210090.png);
+  height: 200px;
+  width: 200px;
+  background-size: contain;
+}
+.treenuts {
+  background-image: url(./media/noun_nuts_1108775.png);
+  height: 200px;
+  width: 200px;
+  background-size: contain;
+}
+.wheat {
+  background-image: url(./media/noun_Wheat_994491.png);
+  background-size: contain;
+  height: 200px;
+  width: 200px;
+}
+.dairy {
+  background-image: url(./media/noun_dairy_1012475.png);
+  background-size: contain;
+  height: 200px;
+  width: 200px;
+}
+.eggs {
+  background-image: url(./media/noun_Egg_2348384.png);
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+}

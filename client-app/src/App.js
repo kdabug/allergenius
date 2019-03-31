@@ -105,10 +105,26 @@ class App extends Component {
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    const currentQuery = this.state.autocompleteOptions.filter(
-      element => element.option === userInput
+    const query = this.state.autocompleteOptions.filter(
+      element => element === userInput
     );
-
+    const currentQuery =
+      this.state.countryList.countries.map(element => {
+        if (element.name === query)
+          return { data: element, route: "places-country" };
+      }) ||
+      this.state.allergyList.map(element => {
+        if (element.name === query)
+          return { data: element, route: "food-allergy" };
+      }) ||
+      this.state.cityList.cities.map(element => {
+        if (element.name === query)
+          return { data: element, route: "places-city" };
+      }) ||
+      this.state.languageList.map(element => {
+        if (element.language === query)
+          return { data: element, route: "language" };
+      });
     await this.setState((prevState, newState) => ({
       currentQuery: currentQuery,
       activeOption: 0,
@@ -427,7 +443,13 @@ class App extends Component {
         <Route
           exact
           path="/food-allergens/:allergen_id"
-          render={() => <Translate />}
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
         />
         <Route
           exact
@@ -445,7 +467,28 @@ class App extends Component {
         />
         <Route exact path="/contact" render={() => <Contact />} />
         <Route exact path="/places" render={() => <PlacesHome />} />
-        <Route exact path="/places/:place_id" render={() => <Translate />} />
+        <Route
+          exact
+          path="/places/:place_id"
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/languages/:language_id"
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
+        />
         <Route
           exact
           path="/logout"

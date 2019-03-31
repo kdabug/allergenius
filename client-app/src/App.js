@@ -28,7 +28,6 @@ import { getCountries } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
-import Translate from './components/Translate'
 
 import "./App.css";
 
@@ -55,7 +54,6 @@ class App extends Component {
       cityList: {},
       countryList: {},
       languageList: {},
-
       //below is used for the query bar input
       currentQuery: "",
       userInput: "",

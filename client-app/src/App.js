@@ -55,7 +55,6 @@ class App extends Component {
       cityList: {},
       countryList: {},
       languageList: {},
-
       //below is used for the query bar input
       currentQuery: "",
       userInput: "",

@@ -21,49 +21,57 @@ export default props => {
   console.log("register user form props", userData);
   return (
     showRegister && (
-      <form className="user-form-container">
-        <h2>{title}</h2>
-        <div className="text-input-container">
-          <div className="text-input">
-            <label htmlFor="email">Email </label>
-            <input
-              type="text"
-              onChange={onChange}
-              name="email"
-              id="email"
-              value={email}
-            />
-          </div>
-          <div className="text-input">
-            <label htmlFor="username">User Name</label>
-            <input
-              type="text"
-              onChange={onChange}
-              name="username"
-              id="username"
-              value={userData ? userData.user : username}
-            />
-          </div>
-          <div className="text-input">
-            {passwordAsk && (
-              <>
-                <label htmlFor="password">Password</label>
+      <div className="user-form-container">
+        <div className="inner-form-container">
+          <img src="" alt="" />
+          <form>
+          <img src="https://i.imgur.com/ypBE1hi.png" alt="" />
+            <h2>{title}</h2>
+            <div className="text-input-container">
+              <div className="text-input">
                 <input
-                  type="password"
+                  type="text"
                   onChange={onChange}
-                  name="password"
-                  id="password"
-                  value={password}
+                  name="email"
+                  id="email"
+                  value={email}
+                  placeholder="Email"
                 />
-              </>
-            )}
+              </div>
+              <div className="text-input">
+                <input
+                  type="text"
+                  onChange={onChange}
+                  name="username"
+                  id="username"
+                  value={userData ? userData.user : username}
+                  placeholder="Username"
+                />
+              </div>
+              <div className="text-input">
+                {passwordAsk && (
+                  <>
+                    <input
+                      type="password"
+                      onChange={onChange}
+                      name="password"
+                      id="password"
+                      value={password}
+                      placeholder="Password"
+                    />
+                  </>
+                )}
+              </div>
+            </div>
+            <button type="submit" onClick={onSubmit}>
+              Register
+            </button>
+          </form>
+          <div className="login-bottom">
+            <div id="hover" onClick={onClick}>Already have an account? <u>Sign in!</u></div>
           </div>
-        </div>
-        <button type="submit" onClick={onSubmit}>
-          Register
-        </button>
-        <button onClick={onClick}>{backButtonText}</button>
-      </form>
+          </div>
+      </div>
     )
   );
 };

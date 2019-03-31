@@ -27,7 +27,6 @@ class ExploreHome extends React.Component {
   }
   componentDidMount() {
     this.handleMediaFetch();
-    console.log("test to merge");
   }
 
   render() {
@@ -60,16 +59,20 @@ class ExploreHome extends React.Component {
             <div className="preset-allergens-container">
               <h2>Allergens</h2>
               <div>
-                icon & <Link to={"/food-allergens/"}>Shellfish</Link>
+                <Icon url={"../media/noun_shellfish_2210090.png"} />{" "}
+                <Link to={"/food-allergens/"}>Shellfish</Link>
               </div>
               <div>
-                icon & <Link to={"/food-allergens/"}>Peanuts</Link>
+                <Icon url={"../media/noun_peanuts_1044368.png"} />
+                <Link to={"/food-allergens/"}>Peanuts</Link>
               </div>
               <div>
-                icon & <Link to={"/food-allergens/"}>Eggs</Link>
+                <Icon url={"../media/noun_Egg_2348384.png"} />
+                <Link to={"/food-allergens/"}>Eggs</Link>
               </div>
               <div>
-                icon & <Link to={"/food-allergens/"}>Tree Nut</Link>
+                <Icon url={"../media/noun_nuts_1108775.png"} />{" "}
+                <Link to={"/food-allergens/"}>Tree Nut</Link>
               </div>
             </div>
           </div>

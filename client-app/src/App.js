@@ -24,7 +24,7 @@ import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 import { getLanguages } from "./services/languagesApi";
-import { getCountries } from "./services/countriesApi";
+import { getCountries, getCountry } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
@@ -90,7 +90,11 @@ class App extends Component {
         element =>
           element.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
       )
-      .map(element => element.name);
+      .map(
+        element =>
+          (element.countryName && element.name + ", " + element.countryName) ||
+          element.name
+      );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({
       activeOption: 0,
@@ -110,16 +114,6 @@ class App extends Component {
     const currentQuery = this.state.autocompleteOptions.filter(
       element => element.name === userInput
     );
-    // console.log("this is query", query);
-    // const currentQuery =
-    //   this.state.countryList.countries.filter(
-    //     element => element.name === userInput
-    //   ) ||
-    //   this.state.allergyList.filter(element => element.name === userInput) ||
-    //   this.state.cityList.cities.filter(
-    //     element => element.name === userInput
-    //   ) ||
-    //   this.state.languageList.filter(element => element.language === userInput);
 
     await this.setState((prevState, newState) => ({
       currentQuery: currentQuery,
@@ -136,7 +130,9 @@ class App extends Component {
       "this is handlequeryclick: this.state.currentQuery",
       currentQuery
     );
-    this.props.history.push(`/${currentQuery[0].route}/${currentQuery[0].id}`);
+    // this.props.history.push(
+    //   `/${currentQuery[0].route}/${currentQuery[0].name}`
+    // );
   }
 
   handleQueryKeyDown = e => {
@@ -285,9 +281,19 @@ class App extends Component {
   }
   async getAllCities() {
     const cityList = await getCities();
-    console.log(cityList);
+    console.log("countryList in cityList", this.state.cityList);
+
     const cityOpt = cityList.cities.map(city => {
-      return { name: city.name, id: city.id, route: "places-city" };
+      const countryName = this.state.countryList.countries
+        .filter(country => country.id === city.countryId)
+        .map(country => country.name);
+      return {
+        name: city.name,
+        id: city.id,
+        countryId: city.countryId,
+        countryName: countryName[0],
+        route: "places-city"
+      };
     });
     this.setState((prevState, newState) => ({
       autocompleteOptions: prevState.autocompleteOptions.concat(cityOpt),
@@ -316,9 +322,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.getAllCities();
     await this.getAllLanguages();
     await this.getAllCountries();
+    await this.getAllCities();
     await this.getAllAllergens();
     // try {
     //   const { user } = await verifyToken();
@@ -441,7 +447,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/food-allergens/:allergen_id"
+          path="/food-allergens/:allergen_name/:allergen_id"
           render={props => (
             <Translate
               {...props}
@@ -468,7 +474,7 @@ class App extends Component {
         <Route exact path="/places" render={() => <PlacesHome />} />
         <Route
           exact
-          path="/places/:place_id"
+          path="/places-cities/:place_name/:place_id"
           render={props => (
             <Translate
               {...props}
@@ -479,7 +485,18 @@ class App extends Component {
         />
         <Route
           exact
-          path="/languages/:language_id"
+          path="/places-countries/:place_name/:place_id"
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/languages/:language_name/:language_code"
           render={props => (
             <Translate
               {...props}

@@ -8,16 +8,22 @@ export default props => (
     <div className="preset-cities-container">
       <h2>Places</h2>
       <div>
-        icon & <Link to={"/places/"}>London, England</Link>
+        <div>icon</div>{" "}
+        <Link to={"/places-cities/London/"}>London, England</Link>
       </div>
       <div>
-        icon & <Link to={"/places/"}>Paris, France</Link>
+        <div>icon</div> &{" "}
+        <Link to={"/places-cities/Paris/2974"}>Paris, France</Link>
       </div>
       <div>
-        icon & <Link to={"/places/"}>Tokyo, Japan</Link>
+        <div>icon</div> &{" "}
+        <Link to={"/places-cities/Tokyo/1532"}>Tokyo, Japan</Link>
       </div>
       <div>
-        icon & <Link to={"/places/"}>Rio De Janiero, Brazil</Link>
+        <div>icon</div> &{" "}
+        <Link to={"/places-cities/Rio De Janiero/"}>
+          Rio De Janiero, Brazil
+        </Link>
       </div>
     </div>
     <div className="preset-allergens-container">

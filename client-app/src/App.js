@@ -80,7 +80,7 @@ class App extends Component {
     this.getAllCountries = this.getAllCountries.bind(this);
     this.getAllLanguages = this.getAllLanguages.bind(this);
     this.getAllAllergens = this.getAllAllergens.bind(this);
-    this.getAllMedia = this.getAllMedia.bind(this);
+    this.getMedia = this.getMedia.bind(this);
   }
 
   handleQueryChange = e => {
@@ -105,9 +105,13 @@ class App extends Component {
       userInput: userInput
     });
   };
-  async getAllMedia() {
-    const data = await api.get("/places", { params: { city_string: "Paris" } });
-    console.log("this is media data", data);
+  async getMedia(string) {
+    console.log("getMedia string", string);
+    const photo = await api.get("/places", {
+      params: { city_string: string }
+    });
+    console.log("this is media data", photo.data);
+    return photo.data;
   }
   async handleQueryClick(e) {
     //e.preventDefault();
@@ -331,7 +335,7 @@ class App extends Component {
     await this.getAllCountries();
     await this.getAllCities();
     await this.getAllAllergens();
-    await this.getAllMedia();
+
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {
@@ -381,7 +385,8 @@ class App extends Component {
                   placeHolder="search by city, country or allergen'"
                 />
               </div>
-              <ExploreHome />
+
+              <ExploreHome {...props} getMedia={this.getMedia} />
             </>
           )}
         />

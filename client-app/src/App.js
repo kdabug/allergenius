@@ -86,8 +86,7 @@ class App extends Component {
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
     const filteredOptions = autocompleteOptions.filter(
-      element =>
-        element.option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      element => element.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({

@@ -1,6 +1,8 @@
 import React from "react";
 import DisplayList from "./DisplayList";
 import { Link, Route, withRouter } from "react-router-dom";
+import { getMedia } from "../services/mediaHelper";
+import Icon from "./Icon";
 
 export default props => (
   <div className="explore-home-container">
@@ -8,12 +10,10 @@ export default props => (
     <div className="preset-cities-container">
       <h2>Places</h2>
       <div>
-        <div>icon</div>{" "}
         <Link to={"/places-cities/London/"}>London, England</Link>
       </div>
       <div>
-        <div>icon</div> &{" "}
-        <Link to={"/places-cities/Paris/2974"}>Paris, France</Link>
+        <div /> <Link to={"/places-cities/Paris/2974"}>Paris, France</Link>
       </div>
       <div>
         <div>icon</div> &{" "}

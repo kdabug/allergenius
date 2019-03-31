@@ -28,8 +28,9 @@ import { getCountries, getCountry } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
-
+import getMedia from "./services/mediaHelper";
 import "./App.css";
+import { api } from "./services/apiHelper";
 
 class App extends Component {
   constructor(props) {
@@ -79,6 +80,7 @@ class App extends Component {
     this.getAllCountries = this.getAllCountries.bind(this);
     this.getAllLanguages = this.getAllLanguages.bind(this);
     this.getAllAllergens = this.getAllAllergens.bind(this);
+    this.getAllMedia = this.getAllMedia.bind(this);
   }
 
   handleQueryChange = e => {
@@ -103,7 +105,10 @@ class App extends Component {
       userInput: userInput
     });
   };
-
+  async getAllMedia() {
+    const data = await api.get("/places", { params: { city_string: "Paris" } });
+    console.log("this is media data", data);
+  }
   async handleQueryClick(e) {
     //e.preventDefault();
     console.log(
@@ -326,6 +331,7 @@ class App extends Component {
     await this.getAllCountries();
     await this.getAllCities();
     await this.getAllAllergens();
+    await this.getAllMedia();
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {

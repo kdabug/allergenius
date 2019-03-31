@@ -27,6 +27,7 @@ class ExploreHome extends React.Component {
   }
   componentDidMount() {
     this.handleMediaFetch();
+    console.log("test to merge");
   }
 
   render() {

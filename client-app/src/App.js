@@ -56,8 +56,6 @@ class App extends Component {
       countryList: [],
       languageList: [],
       allergyList: [],
-
-      //below is used for the query bar input
       currentQuery: "",
       userInput: "",
       autocompleteOptions: [],

@@ -5,7 +5,7 @@ const Header = props => {
   const { currentUser, userData } = props;
   return (
     <div className="header">
-      <nav>
+      <nav className="header-nav">
         <Link to="/about">About</Link>
         <Link to="/places">Places</Link>
         <Link to="/food-allergens">Food Allergies</Link>
@@ -25,8 +25,7 @@ const Header = props => {
         {!currentUser && (
           <>
             <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-            <Link to="/translate">Translate</Link>
+            <Link className="sign" to="/register">Sign Up</Link>
           </>
         )}
       </nav>

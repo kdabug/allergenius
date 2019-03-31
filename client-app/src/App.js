@@ -24,12 +24,13 @@ import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 import { getLanguages } from "./services/languagesApi";
-import { getCountries } from "./services/countriesApi";
+import { getCountries, getCountry } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
-
+import getMedia from "./services/mediaHelper";
 import "./App.css";
+import { api } from "./services/apiHelper";
 
 class App extends Component {
   constructor(props) {
@@ -78,15 +79,23 @@ class App extends Component {
     this.getAllCountries = this.getAllCountries.bind(this);
     this.getAllLanguages = this.getAllLanguages.bind(this);
     this.getAllAllergens = this.getAllAllergens.bind(this);
+    this.getMedia = this.getMedia.bind(this);
   }
 
   handleQueryChange = e => {
     const { autocompleteOptions } = this.state;
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
-    const filteredOptions = autocompleteOptions.filter(
-      element => element.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
+    const filteredOptions = autocompleteOptions
+      .filter(
+        element =>
+          element.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      )
+      .map(
+        element =>
+          (element.countryName && element.name + ", " + element.countryName) ||
+          element.name
+      );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({
       activeOption: 0,
@@ -95,7 +104,14 @@ class App extends Component {
       userInput: userInput
     });
   };
-
+  async getMedia(string) {
+    console.log("getMedia string", string);
+    const photo = await api.get("/places", {
+      params: { city_string: string }
+    });
+    console.log("this is media data", photo.data);
+    return photo.data;
+  }
   async handleQueryClick(e) {
     //e.preventDefault();
     console.log(
@@ -103,26 +119,10 @@ class App extends Component {
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    const query = this.state.autocompleteOptions.filter(
-      element => element === userInput
+    const currentQuery = this.state.autocompleteOptions.filter(
+      element => element.name === userInput
     );
-    const currentQuery =
-      this.state.countryList.countries.map(element => {
-        if (element.name === query)
-          return { data: element, route: "places-country" };
-      }) ||
-      this.state.allergyList.map(element => {
-        if (element.name === query)
-          return { data: element, route: "food-allergy" };
-      }) ||
-      this.state.cityList.cities.map(element => {
-        if (element.name === query)
-          return { data: element, route: "places-city" };
-      }) ||
-      this.state.languageList.map(element => {
-        if (element.language === query)
-          return { data: element, route: "language" };
-      });
+
     await this.setState((prevState, newState) => ({
       currentQuery: currentQuery,
       activeOption: 0,
@@ -134,9 +134,13 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
-    this.props.history.push(
-      `/${this.state.currentQuery[0].list}/${this.state.currentQuery[0].option}`
+    console.log(
+      "this is handlequeryclick: this.state.currentQuery",
+      currentQuery
     );
+    // this.props.history.push(
+    //   `/${currentQuery[0].route}/${currentQuery[0].name}`
+    // );
   }
 
   handleQueryKeyDown = e => {
@@ -275,7 +279,7 @@ class App extends Component {
     const allergyList = await getAllergies();
     console.log("this is allergy data", allergyList);
     const allergyOpt = allergyList.map(allergy => {
-      return allergy.name;
+      return { name: allergy.name, id: allergy.id, route: "food-allergens" };
     });
     this.setState((prevState, newState) => ({
       autocompleteOptions: prevState.autocompleteOptions.concat(allergyOpt),
@@ -285,8 +289,19 @@ class App extends Component {
   }
   async getAllCities() {
     const cityList = await getCities();
+    console.log("countryList in cityList", this.state.cityList);
+
     const cityOpt = cityList.cities.map(city => {
-      return city.name;
+      const countryName = this.state.countryList.countries
+        .filter(country => country.id === city.countryId)
+        .map(country => country.name);
+      return {
+        name: city.name,
+        id: city.id,
+        countryId: city.countryId,
+        countryName: countryName[0],
+        route: "places-city"
+      };
     });
     this.setState((prevState, newState) => ({
       autocompleteOptions: prevState.autocompleteOptions.concat(cityOpt),
@@ -296,7 +311,7 @@ class App extends Component {
   async getAllLanguages() {
     const languageList = await getLanguages();
     const languagesOpt = languageList.map(element => {
-      return element.language;
+      return { name: element.language, id: element.id, route: "languages" };
     });
     this.setState((prevState, newState) => ({
       autocompleteOptions: prevState.autocompleteOptions.concat(languagesOpt),
@@ -306,7 +321,7 @@ class App extends Component {
   async getAllCountries() {
     const countryList = await getCountries();
     const countryOpt = countryList.countries.map(country => {
-      return country.name;
+      return { name: country.name, id: country.id, route: "places-country" };
     });
     this.setState((prevState, newState) => ({
       autocompleteOptions: prevState.autocompleteOptions.concat(countryOpt),
@@ -315,10 +330,11 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.getAllCities();
     await this.getAllLanguages();
     await this.getAllCountries();
+    await this.getAllCities();
     await this.getAllAllergens();
+
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {
@@ -368,7 +384,8 @@ class App extends Component {
                   placeHolder="search by city, country or allergen'"
                 />
               </div>
-              <ExploreHome />
+
+              <ExploreHome {...props} getMedia={this.getMedia} />
             </>
           )}
         />
@@ -440,7 +457,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/food-allergens/:allergen_id"
+          path="/food-allergens/:allergen_name/:allergen_id"
           render={props => (
             <Translate
               {...props}
@@ -467,7 +484,7 @@ class App extends Component {
         <Route exact path="/places" render={() => <PlacesHome />} />
         <Route
           exact
-          path="/places/:place_id"
+          path="/places-cities/:place_name/:place_id"
           render={props => (
             <Translate
               {...props}
@@ -478,7 +495,18 @@ class App extends Component {
         />
         <Route
           exact
-          path="/languages/:language_id"
+          path="/places-countries/:place_name/:place_id"
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/languages/:language_name/:language_code"
           render={props => (
             <Translate
               {...props}
@@ -494,10 +522,12 @@ class App extends Component {
             <LogoutForm {...props} handleLogout={this.handleLogout} />
           )}
         />
-        <Route exact path="/translate"
-        render={props => (
-          <Translate {...props} currentUser={this.state.currentUser} />
-        )}
+        <Route
+          exact
+          path="/translate"
+          render={props => (
+            <Translate {...props} currentUser={this.state.currentUser} />
+          )}
         />
         <Footer />
       </div>

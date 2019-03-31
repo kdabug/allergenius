@@ -21,11 +21,12 @@ nav {
   font-style: normal;
   font-stretch: normal;
   list-style-type: none;
-	margin: 0;
-	padding: 20px;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
   text-decoration: none;
-	text-transform: normal;
-	letter-spacing: normal;
+  text-transform: normal;
+  letter-spacing: normal;
   line-height: 1.3em;
   display: flex;
   justify-content: flex-end;
@@ -212,9 +213,9 @@ form img {
   align-items: center;
   justify-content: center;
   font-family: sans-serif;
-  background: #DBDBDB;
+  background: #dbdbdb;
   border-right: 1px solid grey;
-  color: var(--dark-blue-grey);;
+  color: #173e43;
 }
 
 #selected-tab {
@@ -244,13 +245,13 @@ form img {
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  color: var(--dark-blue-grey);;
+  color: #173e43;
 }
 
 .language {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--dark-blue-grey);;
+  border-right: 1px solid #173e43;
 }
 
 #other {
@@ -264,7 +265,12 @@ form img {
 .language p {
   align-self: flex-start;
   font-size: 22px;
-  border-bottom: 1px solid var(--dark-blue-grey);;
+  border-bottom: 1px solid #173e43;
   width: 100%;
   padding-bottom: 20px;
+}
+
+.icon-container {
+  height: 200px;
+  width: 200px;
 }

@@ -120,7 +120,10 @@ class App extends Component {
     );
     const userInput = e.currentTarget.innerText;
     const currentQuery = this.state.autocompleteOptions.filter(
-      element => element.name === userInput
+      element =>
+        (element.countryName &&
+          element.name + ", " + element.countryName === userInput) ||
+        element.name === userInput
     );
 
     await this.setState((prevState, newState) => ({
@@ -138,9 +141,9 @@ class App extends Component {
       "this is handlequeryclick: this.state.currentQuery",
       currentQuery
     );
-    // this.props.history.push(
-    //   `/${currentQuery[0].route}/${currentQuery[0].name}`
-    // );
+    this.props.history.push(
+      `/${currentQuery[0].route}/${currentQuery[0].name}/${currentQuery[0].id}`
+    );
   }
 
   handleQueryKeyDown = e => {

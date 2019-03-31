@@ -2,16 +2,16 @@ import React from "react";
 
 export default props => {
   console.log("Props in Icon: ", props);
-  const { url } = props;
+  const { url, id } = props;
   return (
     <>
-      {url !== "Promise" ? (
+      {url ? (
         <div
           className="icon-container"
-          style={{ backgroundImage: `url(${props.url})` }}
+          style={{ backgroundImage: `url(${url})` }}
         />
       ) : (
-        <div>loading</div>
+        <div className={`icon-container, ${id}`} />
       )}
     </>
   );

@@ -27,7 +27,6 @@ class ExploreHome extends React.Component {
   }
   componentDidMount() {
     this.handleMediaFetch();
-    console.log("test to merge");
   }
 
   render() {
@@ -39,41 +38,46 @@ class ExploreHome extends React.Component {
             <div className="preset-cities-container">
             <div className="circle"></div>
               <h2>Places</h2>
-              <div className="city-container">
-                <Icon url={this.state.mediaArray[0]} />
+              <div>
+                <Icon url={this.state.mediaArray[0]} id="places-icon" />
                 <Link to={"/places-cities/London/"}>London, England</Link>
               </div>
-              <div className="city-container">
-                <Icon url={this.state.mediaArray[1]} />
+              <div>
+                <Icon url={this.state.mediaArray[1]} id="places-icon" />
                 <Link to={"/places-cities/Paris/2974"}>Paris, France</Link>
               </div>
-              <div className="city-container">
-                <Icon url={this.state.mediaArray[2]} />
+              <div>
+                <Icon url={this.state.mediaArray[2]} id="places-icon" />
                 <Link to={"/places-cities/Tokyo/1532"}>Tokyo, Japan</Link>
               </div>
-              {/*<div>
-                <Icon url={this.state.mediaArray[3]} />
+              <div>
+                <Icon url={this.state.mediaArray[3]} id="places-icon" />
                 <Link to={"/places-cities/Rio De Janiero/"}>
                   Rio De Janiero, Brazil
                 </Link>
               </div>*/}
             </div>
-            <div className="preset-cities-container">
-              <div className="circle"></div>
-              <h2>Allergens</h2>
-              <div className="city-container">
-                icon & <Link to={"/food-allergens/"}>Shellfish</Link>
+            <>
+              <div className="preset-allergens-container">
+                <h2>Allergens</h2>
+                <div>
+                  <Icon url="" id="shellfish" />{" "}
+                  <Link to={"/food-allergens/shellfish"}>Shellfish</Link>
+                </div>
+                <div>
+                  <Icon url="" id="peanuts" />
+                  <Link to={"/food-allergens/peanuts"}>Peanuts</Link>
+                </div>
+                <div>
+                  <Icon url="" id="eggs" />
+                  <Link to={"/food-allergens/eggs"}>Eggs</Link>
+                </div>
+                <div>
+                  <Icon url="" id="treenuts" />{" "}
+                  <Link to={"/food-allergens/treenuts"}>Tree Nut</Link>
+                </div>
               </div>
-              <div className="city-container">
-                icon & <Link to={"/food-allergens/"}>Peanuts</Link>
-              </div>
-              <div className="city-container">
-                icon & <Link to={"/food-allergens/"}>Eggs</Link>
-              </div>
-              <div className="city-container">
-                icon & <Link to={"/food-allergens/"}>Tree Nut</Link>
-              </div>
-            </div>
+            </>
           </div>
         )}
       </>

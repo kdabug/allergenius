@@ -484,7 +484,23 @@ class App extends Component {
           )}
         />
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route exact path="/places" render={() => <PlacesHome />} />
+        <Route
+          exact
+          path="/places"
+          render={props => (
+            <PlacesHome
+              {...props}
+              onKeyDown={this.handleQueryKeyDown}
+              onFormChange={this.handleQueryChange}
+              onClick={this.handleQueryClick}
+              onSubmit={this.state.handleQuerySubmit}
+              showOptions={this.state.showOptions}
+              userInput={this.state.userInput}
+              filteredOptions={this.state.filteredOptions}
+              activeOptions={this.state.activeOption}
+            />
+          )}
+        />
         <Route
           exact
           path="/places-cities/:place_name/:place_id"

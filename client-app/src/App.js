@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ExploreHome from "./components/ExploreHome";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import Translate from "./components/Translate";
 import PlacesHome from "./components/PlacesHome";
 import DisplayPlaceData from "./components/DisplayPlaceData";
 import About from "./components/About";
@@ -19,10 +20,13 @@ import TravelTips from "./components/TravelTips";
 import UserProfile from "./components/UserProfile";
 import AddBlogPost from "./components/AddBlogPost";
 import decode from "jwt-decode";
-import { getTranslation, speak} from './services/googleApiHelper';
+import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
-import { getUserAllergies} from "./services/allergiesApi";
+import { getLanguages } from "./services/languagesApi";
+import { getCountries } from "./services/countriesApi";
+import { getAllergies } from "./services/allergiesApi";
+import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
 import Translate from './components/Translate'
 
@@ -53,6 +57,7 @@ class App extends Component {
       languageList: {},
 
       //below is used for the query bar input
+      currentQuery: "",
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -74,6 +79,7 @@ class App extends Component {
     this.getAllCities = this.getAllCities.bind(this);
     this.getAllCountries = this.getAllCountries.bind(this);
     this.getAllLanguages = this.getAllLanguages.bind(this);
+    this.getAllAllergens = this.getAllAllergens.bind(this);
   }
 
   handleQueryChange = e => {
@@ -81,7 +87,7 @@ class App extends Component {
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
     const filteredOptions = autocompleteOptions.filter(
-      option => option.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      element => element.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     );
     console.log("this is handleQueryChange: filteredOptions", filteredOptions);
     this.setState({
@@ -99,12 +105,28 @@ class App extends Component {
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    const currentStation = this.state.stationData.filter(
-      station => station.name + " " + station.lines === userInput
+    const query = this.state.autocompleteOptions.filter(
+      element => element === userInput
     );
-
+    const currentQuery =
+      this.state.countryList.countries.map(element => {
+        if (element.name === query)
+          return { data: element, route: "places-country" };
+      }) ||
+      this.state.allergyList.map(element => {
+        if (element.name === query)
+          return { data: element, route: "food-allergy" };
+      }) ||
+      this.state.cityList.cities.map(element => {
+        if (element.name === query)
+          return { data: element, route: "places-city" };
+      }) ||
+      this.state.languageList.map(element => {
+        if (element.language === query)
+          return { data: element, route: "language" };
+      });
     await this.setState((prevState, newState) => ({
-      currentStation: currentStation,
+      currentQuery: currentQuery,
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
@@ -114,11 +136,9 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
-    console.log(
-      "this is handlequeryclick: this.state.currentStation",
-      this.state.currentStation
+    this.props.history.push(
+      `/${this.state.currentQuery[0].list}/${this.state.currentQuery[0].option}`
     );
-    this.props.history.push(`/stations/${this.state.currentStation[0].id}`);
   }
 
   handleQueryKeyDown = e => {
@@ -154,7 +174,7 @@ class App extends Component {
     e.preventDefault();
     const { userData } = await loginUser(this.state.loginFormData);
     console.log(userData);
-    const {id} = this.state.userData;
+    const { id } = this.state.userData;
     const userAllergies = await getUserAllergies(id);
     const userTrips = await getUsersBlogposts(id);
     this.setState({
@@ -253,45 +273,66 @@ class App extends Component {
       }
     }));
   }
-
+  async getAllAllergens() {
+    const allergyList = await getAllergies();
+    console.log("this is allergy data", allergyList);
+    const allergyOpt = allergyList.map(allergy => {
+      return allergy.name;
+    });
+    this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(allergyOpt),
+      allergyList: allergyList
+    }));
+    console.log("autocompleteOptions", this.state.autocompleteOptions);
+  }
   async getAllCities() {
     const cityList = await getCities();
-    console.log("this is CITYLIST in APP.JS:", cityList);
+    const cityOpt = cityList.cities.map(city => {
+      return city.name;
+    });
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(cityOpt),
       cityList: cityList
     }));
   }
   async getAllLanguages() {
-    const languageList = await getCities();
-    console.log("this is LANGUAGELIST in APP.JS:", languageList);
+    const languageList = await getLanguages();
+    const languagesOpt = languageList.map(element => {
+      return element.language;
+    });
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(languagesOpt),
       languageList: languageList
     }));
   }
   async getAllCountries() {
-    const countryList = await getCities();
-    console.log("this is countryList in APP.JS:", countryList);
+    const countryList = await getCountries();
+    const countryOpt = countryList.countries.map(country => {
+      return country.name;
+    });
     this.setState((prevState, newState) => ({
+      autocompleteOptions: prevState.autocompleteOptions.concat(countryOpt),
       countryList: countryList
     }));
   }
 
   async componentDidMount() {
-    await this.getAllCities;
-    await this.getAllLanguages;
-    await this.getAllCountries;
-    try {
-      const { user } = await verifyToken();
-      if (user !== undefined) {
-        this.setState({
-          currentUser: user
-        });
-      } else {
-        this.props.history.push("/");
-      }
-    } catch (e) {
-      this.props.history.push("/");
-    }
+    await this.getAllCities();
+    await this.getAllLanguages();
+    await this.getAllCountries();
+    await this.getAllAllergens();
+    // try {
+    //   const { user } = await verifyToken();
+    //   if (user !== undefined) {
+    //     this.setState({
+    //       currentUser: user
+    //     });
+    //   } else {
+    //     this.props.history.push("/");
+    //   }
+    // } catch (e) {
+    //   this.props.history.push("/");
+    // }
     // const checkUser = localStorage.getItem("jwt");
     // if (checkUser) {
     //   const user = decode(checkUser);
@@ -402,7 +443,13 @@ class App extends Component {
         <Route
           exact
           path="/food-allergens/:allergen_id"
-          render={() => <DisplayFoodAllergen />}
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
         />
         <Route
           exact
@@ -423,7 +470,24 @@ class App extends Component {
         <Route
           exact
           path="/places/:place_id"
-          render={() => <DisplayPlaceData />}
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/languages/:language_id"
+          render={props => (
+            <Translate
+              {...props}
+              userData={this.state.userData}
+              currentQuery={this.state.currentQuery}
+            />
+          )}
         />
         <Route
           exact

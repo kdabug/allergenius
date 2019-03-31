@@ -1,15 +1,13 @@
-const { api } = require('./apiHelper');
+const { api } = require("./apiHelper");
 
 const getCities = async () => {
   try {
     const resp = await api.get(`/cities/`);
     console.log(resp.data);
     return resp.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
-  };
-}
+  }
+};
 
-export {
-  getCities,
-}
+export { getCities };

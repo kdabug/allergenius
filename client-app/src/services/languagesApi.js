@@ -1,8 +1,13 @@
-let api = require('./apiHelper');
+const { api } = require("./apiHelper");
 
-async function getLanguages() {
-  let resp = await api('/languages');
-  return resp.data;
-}
+const getLanguages = async () => {
+  try {
+    const resp = await api("/languages");
+    console.log(resp.data);
+    return resp.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-module.exports = getLanguages;
+export { getLanguages };

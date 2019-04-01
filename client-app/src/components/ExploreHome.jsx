@@ -40,7 +40,7 @@ class ExploreHome extends React.Component {
               <h2>Places</h2>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[0]} id="places-icon" />
-                <Link to={"/places-cities/London/456"}>London, England</Link>
+                <Link to={"/places-cities/London/"}>London, England</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[1]} id="places-icon" />

@@ -490,6 +490,7 @@ class App extends Component {
           render={props => (
             <PlacesHome
               {...props}
+              getMedia={this.getMedia}
               onKeyDown={this.handleQueryKeyDown}
               onFormChange={this.handleQueryChange}
               onClick={this.handleQueryClick}

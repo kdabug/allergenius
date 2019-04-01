@@ -228,6 +228,16 @@ class Translate extends Component {
               <h2>Hear It</h2>
               {phrasesAudio.map(audio => <audio controls preload="none" src={'data:audio/mp3;base64,' + audio}></audio>)}
             </div>
+            <div className="translation-picker">
+                <p>Allergies</p>
+                <select name='selectedAllergy' onChange={this.handleAllergySelector}>
+                  {this.state.allergies.map(allergy => <option>{allergy.name}</option>)}
+                  </select>
+                  <p>Languages</p>
+                  <select name='selectedLanguage' onChange={this.handleLanguageSelector}>
+                  {this.state.relevantLanguages.map(language => <option>{language.language}</option>)}
+                  </select>
+            </div>
           </div>
         </div>
       }
@@ -247,6 +257,16 @@ class Translate extends Component {
           <div className="language" id="other">
             <h2>Hear It</h2>
             <audio controls preload="none" src={'data:audio/mp3;base64,' + usersAudio}></audio>
+          </div>
+          <div className="translation-picker">
+              <p>Allergies</p>
+              <select name='selectedAllergy' onChange={this.handleAllergySelector}>
+                {this.state.allergies.map(allergy => <option>{allergy.name}</option>)}
+                </select>
+                <p>Languages</p>
+                <select name='selectedLanguage' onChange={this.handleLanguageSelector}>
+                {this.state.relevantLanguages.map(language => <option>{language.language}</option>)}
+                </select>
           </div>
           </div>
         </div>

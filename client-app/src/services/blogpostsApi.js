@@ -10,7 +10,7 @@ async function getBlogposts() {
 async function createBlogpost(user_id, cityId, name) {
   let resp = await api.post("/blogposts/user/" + user_id, {
     cityId,
-    name,
+    name
   });
   return resp.data;
 }
@@ -22,9 +22,15 @@ async function getCitiesBlogposts(city_id) {
 }
 
 //get user's blogposts for a country .. make sure you pass user_id
-async function getUsersBlogposts(user_id) {
-  let resp = await api("/blogposts/user/" + user_id);
-  return resp.data;
-}
+
+const getUsersBlogposts = async user_id => {
+  try {
+    const resp = await api.get("/blogposts/user/" + user_id);
+    console.log(resp.data);
+    return resp.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export { getBlogposts, getUsersBlogposts, getCitiesBlogposts, createBlogpost };

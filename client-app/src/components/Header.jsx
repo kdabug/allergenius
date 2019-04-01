@@ -15,9 +15,9 @@ const Header = props => {
             <Link
               to={
                 "/user/" +
-                userData.user.id +
+                userData.id +
                 "/username/" +
-                userData.user.username
+                userData.username
               }
             >
               Profile
@@ -27,6 +27,7 @@ const Header = props => {
         )}
         {!currentUser && (
           <>
+            <Link to="translate">Translate</Link>
             <Link to="/login">Login</Link>
             <Link className="sign" to="/register">
               Sign Up

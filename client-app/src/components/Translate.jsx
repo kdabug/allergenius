@@ -178,16 +178,6 @@ class Translate extends Component {
         <h1>Translations</h1>
         <img src="https://static.thenounproject.com/png/987-200.png" alt="" />
       </div>
-      <div>
-          <p>Allergies</p>
-          <select name='selectedAllergy' onChange={this.handleAllergySelector}>
-            {this.state.allergies.map(allergy => <option>{allergy.name}</option>)}
-            </select>
-            <p>Languages</p>
-            <select name='selectedLanguage' onChange={this.handleLanguageSelector}>
-            {this.state.relevantLanguages.map(language => <option>{language.language}</option>)}
-            </select>
-      </div>
       <div className="translate-tabs-container">
         <div className="translate-tabs" id={ask? "selected-tab" : null} onClick={(ev) => this.expandAsk(ev)}>Ask</div>
         <div className="translate-tabs" id={emphasize? "selected-tab" : null} onClick={(ev) => this.expandEmphasize(ev)}>Emphasize</div>
@@ -208,6 +198,16 @@ class Translate extends Component {
           <div className="language" id="other">
             <h2>Hear It</h2>
             {questionsAudio.map(audio => <audio controls preload="none" src={'data:audio/mp3;base64,' + audio}></audio>)}
+          </div>
+          <div className="translation-picker">
+              <p>Allergies</p>
+              <select name='selectedAllergy' onChange={this.handleAllergySelector}>
+                {this.state.allergies.map(allergy => <option>{allergy.name}</option>)}
+                </select>
+                <p>Languages</p>
+                <select name='selectedLanguage' onChange={this.handleLanguageSelector}>
+                {this.state.relevantLanguages.map(language => <option>{language.language}</option>)}
+                </select>
           </div>
         </div>
       </div>

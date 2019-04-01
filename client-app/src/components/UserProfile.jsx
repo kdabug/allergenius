@@ -3,6 +3,7 @@ import decode from "jwt-decode";
 import DisplayList from "./DisplayList";
 import { getUsersBlogposts } from "../services/blogpostsApi";
 import { Link, Route, withRouter } from "react-router-dom";
+import { verifyToken } from "../services/apiHelper";
 
 class UserProfile extends Component {
   constructor(props) {
@@ -13,26 +14,12 @@ class UserProfile extends Component {
   }
 
   async componentDidMount() {
-    const checkUser = await localStorage.getItem("jwt");
-    if (checkUser) {
-      const user = decode(checkUser);
-      console.log(
-        "this is user ComponentDidMount on UserProfile Component",
-        user
-      );
-      await this.setState((prevState, newState) => ({
-        currentUser: user,
-        token: checkUser,
-        userData: {
-          user
-        }
-      }));
-      const posts = await getUsersBlogposts(this.props.match.params.id);
-      this.setState({
-        posts
-      });
-    }
+    const posts = await getUsersBlogposts(this.props.match.params.id);
+    this.setState({
+      posts
+    });
   }
+
   render() {
     console.log("USERPROFILE : userData:", this.props.userData);
     console.log("USERPROFILE : props.match.params:", this.props.match.params);

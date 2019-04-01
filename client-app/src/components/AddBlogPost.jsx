@@ -28,9 +28,11 @@ class AddBlogPost extends Component {
   }
   async handleSubmit(e) {
     e.preventDefault();
+    const cityId = 1;
     const resp = await createBlogpost(
       this.props.match.params.id,
-      this.state.postData
+      cityId,
+      this.state.postData.text
     );
     console.log(resp);
     this.setState(prevState => ({
@@ -73,7 +75,7 @@ class AddBlogPost extends Component {
             onChange={this.handleCommentFormChange}
           />
         </div>
-        <label htmlFor="title">Date</label>
+        <label htmlFor="title">Title</label>
         <div className="title-container">
           <input
             type="text"
@@ -83,7 +85,7 @@ class AddBlogPost extends Component {
             onChange={this.handleCommentFormChange}
           />
         </div>
-        <label htmlFor="text">Date</label>
+        <label htmlFor="text">Text</label>
         <div className="text-container">
           <input
             type="textarea"

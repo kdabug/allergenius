@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-const CommentList = props => {
+const Display = props => {
   const { commentData } = props;
   console.log("commentList: props.commentList", commentData);
   const createDate = time => {

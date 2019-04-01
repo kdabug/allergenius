@@ -1,4 +1,4 @@
-let api = require("./apiHelper");
+const { api } = require("./apiHelper");
 
 //get blogposts
 async function getBlogposts() {
@@ -7,13 +7,20 @@ async function getBlogposts() {
 }
 
 //create a blogPost ... make sure you pass user_id and countryId
-async function createBlogpost(user_id, cityId, name) {
-  let resp = await api.post("/blogposts/user/" + user_id, {
-    cityId,
-    name
-  });
-  return resp.data;
-}
+
+const createBlogpost = async (user_id, cityId, name) => {
+  console.log("CREATEBLOGPOST api", api);
+  try {
+    const resp = await api.post(`/blogposts/user/${user_id}`, {
+      cityId,
+      name
+    });
+    console.log(resp.data);
+    return resp.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 //get blogposts for a country .. make sure you pass country_id
 async function getCitiesBlogposts(city_id) {
@@ -25,7 +32,7 @@ async function getCitiesBlogposts(city_id) {
 
 const getUsersBlogposts = async user_id => {
   try {
-    const resp = await api.get("/blogposts/user/" + user_id);
+    const resp = await api("/blogposts/user/" + user_id);
     console.log(resp.data);
     return resp.data;
   } catch (e) {

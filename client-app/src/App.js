@@ -188,10 +188,11 @@ class App extends Component {
     const userTrips = await getUsersBlogposts(id);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem("authToken"),
-      userAllergies,
-      userTrips
+      token: localStorage.getItem("authToken")
+      // userAllergies,
+      // userTrips
     });
+    localStorage.setItem("authToken", this.state.token);
     console.log("this is userAllergies", this.state.userAllergies);
     this.props.history.push(
       `/user/${userData.id}/username/${userData.username}`
@@ -223,9 +224,14 @@ class App extends Component {
     const { registerFormData } = this.state;
     const userData = await registerUser(registerFormData);
     this.setState({
-      currentUser: userData
+      currentUser: userData,
+      userData: userData
+      //token: userData.token
     });
-    this.props.history.push(`/users`);
+    //localStorage.setItem("authToken", userData.data.token);
+    this.props.history.push(
+      `/user/${userData.id}/username/${userData.username}`
+    );
   }
 
   async handleEdit(e) {
@@ -245,7 +251,7 @@ class App extends Component {
   }
 
   handleLogout() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("authToken");
     this.setState({
       currentUser: null,
       toggleLogin: true
@@ -343,32 +349,31 @@ class App extends Component {
     await this.getAllCountries();
     await this.getAllCities();
     await this.getAllAllergens();
-
-    try {
-      const { user } = await verifyToken();
-      if (user !== undefined) {
-        this.setState({
-          currentUser: user
-        });
-      } else {
-        this.props.history.push("/");
-      }
-    } catch (e) {
-      this.props.history.push("/");
-    }
-    // const checkUser = localStorage.getItem("jwt");
-    // if (checkUser) {
-    //   const user = decode(checkUser);
-    //   this.setState((prevState, newState) => ({
-    //     currentUser: user,
-    //     token: checkUser,
-    //     userData: {
-    //       id: user.id,
-    //       username: user.username,
-    //       email: user.email
-    //     }
-    //   }));
+    // try {
+    //   const { user } = await verifyToken();
+    //   if (user !== undefined) {
+    //     this.setState({
+    //       currentUser: user
+    //     });
+    //   } else {
+    //     this.props.history.push("/");
+    //   }
+    // } catch (e) {
+    //   this.props.history.push("/");
     // }
+    const checkUser = localStorage.getItem("authToken");
+    if (checkUser) {
+      const user = decode(checkUser);
+      this.setState((prevState, newState) => ({
+        currentUser: user,
+        token: checkUser,
+        userData: {
+          id: user.id,
+          username: user.username,
+          email: user.email
+        }
+      }));
+    }
   }
   render() {
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { speak, getTranslation } from '../services/googleApiHelper.js';
 import { makeBlogpostCard } from '../services/cardsApi.js';
+import { getCountryLanguages } from '../services/countriesApi.js';
 
 class Translate extends Component {
   constructor(props) {
@@ -154,6 +155,15 @@ class Translate extends Component {
   if(nextProps.relevantLanguages !== this.props.relevantLanguages) {
     this.setState({relevantLanguages: nextProps.relevantLanguages });
     }
+  /*if(nextProps.currentQuery[0] !== undefined) {
+    switch (nextProps.currentQuery[0]) {
+      case 'places-city':
+        let languages = await getCountryLanguages(nextProps.currentQuery[0].countryId);
+        this.setState({
+          relevantLanguages: languages
+        });
+    }
+  }*/
   }
 
 

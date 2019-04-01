@@ -35,6 +35,8 @@ import { getUsersBlogposts } from "./services/blogpostsApi";
 import getMedia from "./services/mediaHelper";
 import "./App.css";
 import { api } from "./services/apiHelper";
+import { getBlogposts } from "./services/blogpostsApi";
+import EditUserData from "./components/EditUserData";
 
 class App extends Component {
   constructor(props) {
@@ -58,6 +60,7 @@ class App extends Component {
       userTrips: [],
       cityList: [],
       countryList: [],
+      postList: [],
       languageList: [],
       allergyList: [],
       currentQuery: "",
@@ -84,6 +87,7 @@ class App extends Component {
     this.getAllLanguages = this.getAllLanguages.bind(this);
     this.getAllAllergens = this.getAllAllergens.bind(this);
     this.getMedia = this.getMedia.bind(this);
+    this.getAllPosts = this.getAllPosts.bind(this);
   }
 
   handleQueryChange = e => {
@@ -188,10 +192,17 @@ class App extends Component {
     const userTrips = await getUsersBlogposts(id);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem("authToken"),
+      userData: {
+        id: userData.user.id,
+        username: userData.user.username,
+        email: userData.user.email
+      },
+      token: userData.token,
+      //token: localStorage.getItem("authToken")
       userAllergies,
       userTrips
     });
+    localStorage.setItem("authToken", this.state.token);
     console.log("this is userAllergies", this.state.userAllergies);
     this.props.history.push(
       `/user/${userData.id}/username/${userData.username}`
@@ -223,9 +234,18 @@ class App extends Component {
     const { registerFormData } = this.state;
     const userData = await registerUser(registerFormData);
     this.setState({
-      currentUser: userData
+      currentUser: userData,
+      userData: {
+        id: userData.user.id,
+        username: userData.user.username,
+        email: userData.user.email
+      },
+      token: userData.token
     });
-    this.props.history.push(`/users`);
+    //localStorage.setItem("authToken", userData.data.token);
+    this.props.history.push(
+      `/user/${userData.id}/username/${userData.username}`
+    );
   }
 
   async handleEdit(e) {
@@ -234,7 +254,7 @@ class App extends Component {
     //   this.state.userData.id,
     //   this.state.userData
     // );
-    //console.log("resp userData from handleEdit", userData);
+    // console.log("resp userData from handleEdit", userData);
     // this.setState((prevState, newState) => ({
     //   currentUser: userData.data.user.username,
     //   userData: userData.data.user
@@ -245,7 +265,7 @@ class App extends Component {
   }
 
   handleLogout() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("authToken");
     this.setState({
       currentUser: null,
       toggleLogin: true
@@ -337,38 +357,45 @@ class App extends Component {
       countryList: countryList
     }));
   }
+  async getAllPosts() {
+    const postList = await getBlogposts();
+    console.log("this is postlist", postList);
+    this.setState((prevState, newState) => ({
+      postList: postList
+    }));
+  }
 
   async componentDidMount() {
     await this.getAllLanguages();
     await this.getAllCountries();
     await this.getAllCities();
     await this.getAllAllergens();
-
-    try {
-      const { user } = await verifyToken();
-      if (user !== undefined) {
-        this.setState({
-          currentUser: user
-        });
-      } else {
-        this.props.history.push("/");
-      }
-    } catch (e) {
-      this.props.history.push("/");
-    }
-    // const checkUser = localStorage.getItem("jwt");
-    // if (checkUser) {
-    //   const user = decode(checkUser);
-    //   this.setState((prevState, newState) => ({
-    //     currentUser: user,
-    //     token: checkUser,
-    //     userData: {
-    //       id: user.id,
-    //       username: user.username,
-    //       email: user.email
-    //     }
-    //   }));
+    await this.getAllPosts();
+    // try {
+    //   const { user } = await verifyToken();
+    //   if (user !== undefined) {
+    //     this.setState({
+    //       currentUser: user
+    //     });
+    //   } else {
+    //     this.props.history.push("/");
+    //   }
+    // } catch (e) {
+    //   this.props.history.push("/");
     // }
+    const checkUser = localStorage.getItem("authToken");
+    if (checkUser) {
+      const user = decode(checkUser);
+      this.setState((prevState, newState) => ({
+        currentUser: user,
+        token: checkUser,
+        userData: {
+          id: user.id,
+          username: user.username,
+          email: user.email
+        }
+      }));
+    }
   }
   render() {
     return (
@@ -460,7 +487,11 @@ class App extends Component {
         />
         <Route exact path="/about" render={() => <About />} />
         <Route exact path="/privacy" render={() => <Privacy />} />
-        <Route exact path="/travel-tips" render={() => <TravelTips />} />
+        <Route
+          exact
+          path="/travel-tips"
+          render={() => <TravelTips postList={this.state.postList} />}
+        />
         <Route exact path="/FAQ" render={() => <Faq />} />
         <Route
           exact
@@ -493,7 +524,31 @@ class App extends Component {
           exact
           path="/user/:id/post"
           render={props => (
-            <AddBlogPost {...props} userData={this.state.userData} />
+            <AddBlogPost
+              {...props}
+              userData={this.state.userData}
+              cityList={this.state.cityList}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/user/:id/edit"
+          render={props => (
+            <EditUserData
+              {...props}
+              userData={this.state.userData}
+              title={"Edit User"}
+              onChange={this.handleEditFormChange}
+              onSubmit={this.handleEdit}
+              username={this.state.userData.username}
+              email={this.state.userData.email}
+              password={this.state.userData.password}
+              submitButtonText="Submit Edits"
+              backButtonText={"Cancel (Back to Home)"}
+              onClick={() => this.props.history.push("/")}
+              allergens={this.state.allergyList.map(el => el.name)}
+            />
           )}
         />
         <Route exact path="/contact" render={() => <Contact />} />

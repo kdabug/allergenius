@@ -41,8 +41,8 @@ const main = async () => {
     where: {}
   });
 
-  const peanut = await Allergy.create({
-    name: "peanut",
+  const peanuts = await Allergy.create({
+    name: "peanuts",
     icon: "Here",
     attribution_text: ""
   });

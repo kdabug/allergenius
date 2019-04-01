@@ -1,51 +1,50 @@
-const { api, updateToken } = require('./apiHelper');
+const { api, updateToken } = require("./apiHelper");
 
-const registerUser = async (user) => {
+const registerUser = async user => {
   try {
-  const { email, password, username } = user;
+    const { email, password, username } = user;
 
-  const resp = await api.post('/users/', {
-    email,
-    password,
-    username,
-  });
+    const resp = await api.post("/users/", {
+      email,
+      password,
+      username
+    });
 
-  const { data } = resp;
+    const { data } = resp;
 
-  updateToken(data.token);
-  console.log(data);
-  return data;
-  }
-  catch(e){
+    updateToken(data.token);
+    console.log(data);
+    return data;
+  } catch (e) {
     console.log(e);
   }
 };
 
 const verifyToken = async () => {
-  const token = await localStorage.getItem('authToken');
+  const token = await localStorage.getItem("authToken");
   if (token === null) {
     console.log("no token");
     return false;
   } else {
     try {
-      console.log("token verified");
-      const resp = await api.get('/users/verify', {
+      console.log("token verified", token);
+      const resp = await api.get("/users/verify", {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      updateToken(token);
-      console.log(resp.data);
+      // updateToken(token);
+      console.log("this is verify token resp", resp.data);
       return resp.data;
     } catch (e) {
       console.log(e);
       return false;
     }
   }
-}
+};
 
 const loginUser = async ({ email, password }) => {
-  const resp = await api.post('/users/login', {
+  const resp = await api.post("/users/login", {
     email,
     password
   });
@@ -54,10 +53,6 @@ const loginUser = async ({ email, password }) => {
   updateToken(data.token);
 
   return data;
-}
+};
 
-export {
-  registerUser,
-  verifyToken,
-  loginUser,
-}
+export { registerUser, verifyToken, loginUser };

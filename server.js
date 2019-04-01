@@ -38,14 +38,14 @@ app.use("/cards", cardsRouter);
 app.get("/places", async (req, res) => {
   try {
     let { city_string } = req.query;
-    console.log("this is places reqbody", city_string);
+    //console.log("this is places reqbody", city_string);
     // city_string.replace(/ /g, "%20");
     let location_match = await axios(
       `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${city_string}&inputtype=textquery&fields=photos&key=${
         process.env.REACT_APP_API_KEY
       }`
     );
-    console.log("location_match", location_match);
+    // console.log("location_match", location_match);
     let photoreference =
       location_match.data.candidates[0].photos[0].photo_reference;
     let photo_resp = await axios(

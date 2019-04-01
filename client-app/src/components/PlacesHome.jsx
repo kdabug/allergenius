@@ -81,45 +81,45 @@ class PlacesHome extends React.Component {
               <h2>Places</h2>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[0]} id="places-icon" />
-                <Link to={"/places-cities/London/456"}>London, England</Link>
+                <Link to={"/places-city/London/456"}>London, England</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[1]} id="places-icon" />
-                <Link to={"/places-cities/Paris/2974"}>Paris, France</Link>
+                <Link to={"/places-city/Paris/2974"}>Paris, France</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[2]} id="places-icon" />
-                <Link to={"/places-cities/Tokyo/1532"}>Tokyo, Japan</Link>
+                <Link to={"/places-city/Tokyo/1532"}>Tokyo, Japan</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[3]} id="places-icon" />
-                <Link to={"/places-cities/RioDeJaniero/207"}>
+                <Link to={"/places-city/RioDeJaniero/207"}>
                   Rio De Janiero, Brazil
                 </Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[4]} id="places-icon" />
-                <Link to={"/places-cities/Berlin/"}>Berlin, Germany</Link>
+                <Link to={"/places-city/Berlin/"}>Berlin, Germany</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[5]} id="places-icon" />
-                <Link to={"/places-countries/Mexico/"}>Mexico</Link>
+                <Link to={"/places-country/Mexico/"}>Mexico</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[6]} id="places-icon" />
-                <Link to={"/places-cities/Montreal/"}>Montreal, Canada</Link>
+                <Link to={"/places-city/Montreal/"}>Montreal, Canada</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[7]} id="places-icon" />
-                <Link to={"/places-countries/China/"}>China</Link>
+                <Link to={"/places-country/China/"}>China</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[8]} id="places-icon" />
-                <Link to={"/places-countries/India/"}>India</Link>
+                <Link to={"/places-country/India/"}>India</Link>
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[9]} id="places-icon" />
-                <Link to={"/places-countries/Egypt/"}>Egypt</Link>
+                <Link to={"/places-country/Egypt/"}>Egypt</Link>
               </div>
             </div>
           </div>

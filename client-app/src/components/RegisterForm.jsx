@@ -24,8 +24,10 @@ export default props => {
       <div className="user-form-container" id="register-container">
         <div className="inner-form-container">
           <form id="register-form">
-          <div id="x">X</div>
-          <img src="https://i.imgur.com/ypBE1hi.png" alt="" />
+            <div id="x" onClick={() => props.history.push(`/`)}>
+              X
+            </div>
+            <img src="https://i.imgur.com/ypBE1hi.png" alt="" />
             <h2>{title}</h2>
             <div className="text-input-container">
               <div className="text-input">
@@ -68,9 +70,11 @@ export default props => {
             </button>
           </form>
           <div className="login-bottom">
-            <div id="hover" onClick={onClick}>Already have an account? <u>Sign in!</u></div>
+            <div id="hover" onClick={onClick}>
+              Already have an account? <u>Sign in!</u>
+            </div>
           </div>
-          </div>
+        </div>
       </div>
     )
   );

@@ -12,14 +12,7 @@ const Header = props => {
         <Link to="/travel-tips">Travel Tips</Link>
         {currentUser && (
           <>
-            <Link
-              to={
-                "/user/" +
-                userData.id +
-                "/username/" +
-                userData.username
-              }
-            >
+            <Link to={`/user/${userData.id}/username/${userData.username}`}>
               Profile
             </Link>
             <Link to="/logout">Logout</Link>

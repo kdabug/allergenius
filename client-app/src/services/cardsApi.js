@@ -1,27 +1,24 @@
-const { api } = require('./apiHelper');
+const { api } = require("./apiHelper");
 
-const getBlogpostCards = async (blogpost_id) => {
+const getCards = async card_id => {
   try {
-    const resp = await api.get(`/cards/` + blogpost_id);
+    const resp = await api.get(`/cards/` + card_id);
     return resp.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
-  };
-}
+  }
+};
 
-const makeBlogpostCard = async (blogpost_id, original, translation) => {
+const makeCard = async (card_id, original, translation) => {
   try {
-    const resp = await api.post(`/cards/` + blogpost_id, {
+    const resp = await api.post(`/cards/` + card_id, {
       original,
       translation
     });
     return resp.data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
-  };
-}
+  }
+};
 
-export {
-  getBlogpostCards,
-  makeBlogpostCard
-}
+export { getCards, makeCard };

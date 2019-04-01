@@ -1,36 +1,30 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-const CommentList = props => {
-  const { commentData } = props;
-  console.log("commentList: props.commentList", commentData);
+const DisplayList = props => {
+  const { listData } = props;
+  console.log("displayList: props.listData", listData);
   const createDate = time => {
     const date = new Date(time);
     return date.toLocaleString("en-US");
   };
   return (
     <div className="stock-list">
-      {commentData &&
-        commentData
+      {listData &&
+        listData
           .slice(0)
           .reverse()
-          .map((comment, index) => (
-            <div className="comment-container">
-              <div className="comment-information">
-                At{" "}
-                {comment.is_there === true
-                  ? createDate(comment.at_station)
-                  : createDate(comment.at_station)}
-                , this station was give a {comment.activity} activity rating, a{" "}
-                {comment.cleanliness} rating, and a {comment.wait_time} rating
-                for wait time.
-                {comment.opt_comment && (
-                  <p>this station has been ratted out: {comment.opt_comment}</p>
-                )}
+          .map((post, index) => (
+            <div className="post-container">
+              <div className="post-information">
+                <p>{post.title}</p>
+                <p>{createDate(post.created_at)}</p>
+                <p>{post.cityId}</p>
+                <p>{post.text}</p>
               </div>
             </div>
           ))}
     </div>
   );
 };
-export default withRouter(CommentList);
+export default withRouter(DisplayList);

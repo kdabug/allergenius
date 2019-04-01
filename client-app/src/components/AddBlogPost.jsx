@@ -20,7 +20,7 @@ class AddBlogPost extends Component {
   handleCommentFormChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      commentData: {
+      postData: {
         ...prevState.postData,
         [name]: value
       }
@@ -28,24 +28,33 @@ class AddBlogPost extends Component {
   }
   async handleSubmit(e) {
     e.preventDefault();
+    const { cityList } = this.props;
+    console.log(this.state.cityName, cityList.cities);
+    const cityId = cityList.cities
+      .filter(city => city.name === this.state.cityName)
+      .map(city => city.id);
+    console.log("this is cityId", this.state.cityName + cityId);
     const resp = await createBlogpost(
       this.props.match.params.id,
-      this.state.postData
+      cityId[0],
+      this.state.postData.text,
+      this.state.postData.title
     );
     console.log(resp);
     this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        opt_comment: ""
+      postData: {
+        ...prevState.postData
       }
     }));
+    this.props.history.push(
+      `/user/${this.props.userData.id}/username/${this.props.userData.username}`
+    );
   }
 
   async componentDidMount() {
     this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        stationId: this.props.match.params.id
+      postData: {
+        ...prevState.postData
       }
     }));
   }
@@ -58,7 +67,7 @@ class AddBlogPost extends Component {
           <input
             type="text"
             name="cityName"
-            value={this.state.city}
+            value={this.state.cityName}
             id="cityName"
             onChange={this.handleCommentFormChange}
           />
@@ -73,17 +82,17 @@ class AddBlogPost extends Component {
             onChange={this.handleCommentFormChange}
           />
         </div>
-        <label htmlFor="title">Date</label>
+        <label htmlFor="title">Title</label>
         <div className="title-container">
           <input
             type="text"
             name="title"
-            value={this.state.date}
+            value={this.state.title}
             id="title"
             onChange={this.handleCommentFormChange}
           />
         </div>
-        <label htmlFor="text">Date</label>
+        <label htmlFor="text">Text</label>
         <div className="text-container">
           <input
             type="textarea"

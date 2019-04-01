@@ -9,7 +9,6 @@ const Header = props => {
         <Link to="/">Home</Link>
         <Link to="/places">Places</Link>
         <Link to="/food-allergens">Food Allergies</Link>
-        <Link to="/travel-tips">Travel Tips</Link>
         {currentUser && (
           <>
             <Link to={`/user/${userData.id}/username/${userData.username}`}>

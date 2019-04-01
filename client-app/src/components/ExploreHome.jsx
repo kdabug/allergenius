@@ -36,7 +36,7 @@ class ExploreHome extends React.Component {
           <div className="explore-home-container">
             <h1>Explore Allergenius</h1>
             <div className="preset-container-list">
-            <div className="circle"></div>
+              <div className="circle" />
               <h2>Places</h2>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[0]} id="places-icon" />
@@ -52,30 +52,31 @@ class ExploreHome extends React.Component {
               </div>
               <div className="preset-container">
                 <Icon url={this.state.mediaArray[3]} id="places-icon" />
-                <Link to={"/places-city/Rio De Janiero/"}>
+                <Link to={"/places-cities/RioDeJaniero/207"}>
+
                   Rio De Janiero, Brazil
                 </Link>
               </div>
             </div>
             <>
               <div className="preset-container-list">
-                <div className="circle"></div>
+                <div className="circle" />
                 <h2>Allergens</h2>
                 <div className="preset-container">
                   <Icon url="" id="shellfish" />{" "}
-                  <Link to={"/food-allergens/shellfish"}>Shellfish</Link>
+                  <Link to={"/food-allergens/shellfish/3"}>Shellfish</Link>
                 </div>
                 <div className="preset-container">
                   <Icon url="" id="peanuts" />
-                  <Link to={"/food-allergens/peanuts"}>Peanuts</Link>
+                  <Link to={"/food-allergens/peanuts/1"}>Peanuts</Link>
                 </div>
                 <div className="preset-container">
                   <Icon url="" id="eggs" />
-                  <Link to={"/food-allergens/eggs"}>Eggs</Link>
+                  <Link to={"/food-allergens/eggs/6"}>Eggs</Link>
                 </div>
                 <div className="preset-container">
-                  <Icon url="" id="treenuts" />{" "}
-                  <Link to={"/food-allergens/treenuts"}>Tree Nuts</Link>
+                  <Icon url="" id="nuts" />{" "}
+                  <Link to={"/food-allergens/treenuts/2"}>Tree Nuts</Link>
                 </div>
               </div>
             </>

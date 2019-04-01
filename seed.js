@@ -14,7 +14,9 @@ const main = async () => {
   await Allergy.destroy({
     where: {}
   });
-
+  await City.destroy({
+    where: {}
+  });
   await User.destroy({
     where: {}
   });

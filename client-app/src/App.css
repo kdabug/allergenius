@@ -19,7 +19,6 @@ input:focus {
   margin-top: 0;
 }
 
-
 nav {
   font-size: 32px;
   font-weight: bold;
@@ -106,7 +105,7 @@ h1 {
   left: 0;
   right: 0;
   z-index: 2;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -266,7 +265,7 @@ form img {
 }
 
 .footer {
-  background-color: var(--dark-blue-grey);;
+  background-color: var(--dark-blue-grey);
   color: white;
   text-decoration: none;
   width: 100%;
@@ -422,7 +421,7 @@ audio:focus {
   width: 200px;
   background-size: contain;
 }
-.treenuts {
+.nuts {
   background-image: url(./media/noun_nuts_1108775.png);
   height: 200px;
   width: 200px;
@@ -445,4 +444,10 @@ audio:focus {
   background-size: contain;
   height: 200px;
   width: 200px;
+}
+.fish {
+  background-image: url(./media/noun_Fish_2346798.png);
+  height: 200px;
+  width: 200px;
+  background-size: contain;
 }

@@ -384,7 +384,7 @@ class App extends Component {
                   userInput={this.state.userInput}
                   filteredOptions={this.state.filteredOptions}
                   activeOptions={this.state.activeOption}
-                  placeHolder="Search by city, country or allergen"
+                  placeHolder="Search by city, country, language or allergen"
                 />
               </div>
 
@@ -486,7 +486,24 @@ class App extends Component {
           )}
         />
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route exact path="/places" render={() => <PlacesHome />} />
+        <Route
+          exact
+          path="/places"
+          render={props => (
+            <PlacesHome
+              {...props}
+              getMedia={this.getMedia}
+              onKeyDown={this.handleQueryKeyDown}
+              onFormChange={this.handleQueryChange}
+              onClick={this.handleQueryClick}
+              onSubmit={this.state.handleQuerySubmit}
+              showOptions={this.state.showOptions}
+              userInput={this.state.userInput}
+              filteredOptions={this.state.filteredOptions}
+              activeOptions={this.state.activeOption}
+            />
+          )}
+        />
         <Route
           exact
           path="/places-city/:place_name/:place_id"
@@ -538,12 +555,14 @@ class App extends Component {
           exact
           path="/translate"
           render={props => (
-            <Translate {...props}
-            translationRoute={true}
-            allergies={this.state.allergyList}
-            relevantLanguages={this.state.languageList}
-            userAllergies={this.state.userAllergies}
-            currentUser={this.state.currentUser} />
+            <Translate
+              {...props}
+              translationRoute={true}
+              allergies={this.state.allergyList}
+              relevantLanguages={this.state.languageList}
+              userAllergies={this.state.userAllergies}
+              currentUser={this.state.currentUser}
+            />
           )}
         />
         <Footer />

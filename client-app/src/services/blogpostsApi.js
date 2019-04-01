@@ -8,12 +8,13 @@ async function getBlogposts() {
 
 //create a blogPost ... make sure you pass user_id and countryId
 
-const createBlogpost = async (user_id, cityId, name) => {
+const createBlogpost = async (user_id, city_id, text, title) => {
   console.log("CREATEBLOGPOST api", api);
   try {
     const resp = await api.post(`/blogposts/user/${user_id}`, {
-      cityId,
-      name
+      text,
+      title,
+      city_id
     });
     console.log(resp.data);
     return resp.data;

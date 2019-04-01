@@ -188,9 +188,15 @@ class App extends Component {
     const userTrips = await getUsersBlogposts(id);
     this.setState({
       currentUser: userData,
-      token: localStorage.getItem("authToken")
-      // userAllergies,
-      // userTrips
+      userData: {
+        id: userData.user.id,
+        username: userData.user.username,
+        email: userData.user.email
+      },
+      token: userData.token,
+      //token: localStorage.getItem("authToken")
+      userAllergies,
+      userTrips
     });
     localStorage.setItem("authToken", this.state.token);
     console.log("this is userAllergies", this.state.userAllergies);
@@ -225,8 +231,12 @@ class App extends Component {
     const userData = await registerUser(registerFormData);
     this.setState({
       currentUser: userData,
-      userData: userData
-      //token: userData.token
+      userData: {
+        id: userData.user.id,
+        username: userData.user.username,
+        email: userData.user.email
+      },
+      token: userData.token
     });
     //localStorage.setItem("authToken", userData.data.token);
     this.props.history.push(

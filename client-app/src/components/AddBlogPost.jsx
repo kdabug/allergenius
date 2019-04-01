@@ -20,7 +20,7 @@ class AddBlogPost extends Component {
   handleCommentFormChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      commentData: {
+      postData: {
         ...prevState.postData,
         [name]: value
       }
@@ -36,18 +36,16 @@ class AddBlogPost extends Component {
     );
     console.log(resp);
     this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        opt_comment: ""
+      postData: {
+        ...prevState.postData
       }
     }));
   }
 
   async componentDidMount() {
     this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        stationId: this.props.match.params.id
+      postData: {
+        ...prevState.postData
       }
     }));
   }
@@ -80,7 +78,7 @@ class AddBlogPost extends Component {
           <input
             type="text"
             name="title"
-            value={this.state.date}
+            value={this.state.title}
             id="title"
             onChange={this.handleCommentFormChange}
           />

@@ -23,10 +23,11 @@ blogpostsRouter.post("/user/:user_id", async (req, res) => {
   console.log("blogpost", req.params);
   try {
     const { user_id } = req.params;
-    const { cityId, name } = req.body;
+    const { text, title, city_id } = req.body;
     const resp = await Blogpost.create({
-      cityId,
-      name,
+      text,
+      title,
+      cityId: city_id,
       userId: user_id
     });
     res.json(resp);

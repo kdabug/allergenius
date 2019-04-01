@@ -77,7 +77,8 @@ const Language = sequelize.define("languages", {
 const CountryLanguage = sequelize.define("countrylanguages");
 
 const Blogpost = sequelize.define("blogposts", {
-  name: { type: Sequelize.STRING, allowNull: false },
+  text: { type: Sequelize.STRING, allowNull: false },
+  title: { type: Sequelize.STRING, allowNull: false },
   created_at: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW

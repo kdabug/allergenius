@@ -11,21 +11,16 @@ const Header = props => {
         <Link to="/food-allergens">Food Allergies</Link>
         <Link to="/travel-tips">Travel Tips</Link>
         {currentUser && (
-          <Link
-            to={
-              "/user/" +
-              userData.user.id +
-              "/username/" +
-              userData.user.username
-            }
-          >
+          <Link to={"/user/" + userData.id + "/username/" + userData.username}>
             Profile
           </Link>
         )}
         {!currentUser && (
           <>
             <Link to="/login">Login</Link>
-            <Link className="sign" to="/register">Sign Up</Link>
+            <Link className="sign" to="/register">
+              Sign Up
+            </Link>
           </>
         )}
       </nav>

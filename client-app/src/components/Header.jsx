@@ -24,6 +24,7 @@ const Header = props => {
         )}
         {!currentUser && (
           <>
+            <Link to="translate">Translate</Link>
             <Link to="/login">Login</Link>
             <Link className="sign" to="/register">Sign Up</Link>
           </>

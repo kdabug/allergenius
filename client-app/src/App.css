@@ -311,6 +311,22 @@ form img {
   margin-bottom: 100px;
 }
 
+.translation-picker {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.translation-picker p {
+  font-size: 35px;
+  margin-top: 0
+}
+
+.translation-picker select {
+  height: 40px;
+  font-size: 20px;
+}
+
 .translate-tabs-container {
   display: flex;
   width: 75%;

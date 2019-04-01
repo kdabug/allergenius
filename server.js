@@ -7,7 +7,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 // allow the port to be defined with an env var or a dev value
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // router imports
 const usersRouter = require("./routes/usersRouter");

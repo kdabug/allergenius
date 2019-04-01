@@ -148,12 +148,12 @@ class Translate extends Component {
     //need to make dropdown select
   }
 
-  componentWillReceiveProps(nextProps){
-  if(nextProps.allergies!==this.props.allergies){
-    this.setState({allergies: nextProps.allergies });
-    }
-  if(nextProps.relevantLanguages !== this.props.relevantLanguages) {
-    this.setState({relevantLanguages: nextProps.relevantLanguages });
+  componentWillReceiveProps(nextProps) {
+  if(nextProps.allergies!==this.props.allergies || nextProps.relevantLanguages !== this.props.relevantLanguages) {
+    this.setState(
+      {allergies: nextProps.allergies,
+        relevantLanguages: nextProps.relevantLanguages
+       });
     }
   /*if(nextProps.currentQuery[0] !== undefined) {
     switch (nextProps.currentQuery[0]) {

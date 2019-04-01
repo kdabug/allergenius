@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { speak, getTranslation } from '../services/googleApiHelper.js';
 import { makeBlogpostCard } from '../services/cardsApi.js';
+import { getCountryLanguages } from '../services/countriesApi.js';
 
 class Translate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: {},
-      countryQuery: props.countryQuery ? props.countryQuery : false,
-      cityQuery: props.cityQuery ? props.cityQuery: false ,
-      allergyQuery: props.allergyQuery ? props.allergyQuery : false,
-      languageQuery: props.langaugeQuery ? props.languageQuery : false,
-      translateRoute: props.translationRoute ? true: false,
+      countryQuery: (props.countryQuery === undefined) ? props.countryQuery : false,
+      cityQuery: (props.cityQuery === undefined) ? props.cityQuery: false ,
+      allergyQuery: (props.allergyQuery === undefined) ? props.allergyQuery : false,
+      languageQuery: (props.langaugeQuery === undefined) ? props.languageQuery : false,
+      translateRoute: (props.translationRoute === undefined) ? true: false,
       questions: [
       "Does this meal contain",
       "What food on the menu has NO",
@@ -19,8 +20,8 @@ class Translate extends Component {
       phrases: ["I cannot eat",
       "I have a severe allergy to",
       "I will DIE if I eat"],
-      allergies: props.allergies ? props.allergies : [],
-      relevantLanguages: props.relevantLanguages ? props.relevantLanguages : [],
+      allergies: [],
+      relevantLanguages: [],
       selectedAllergy: {name: "shellfish", icon: ""},
       selectedLanguage: {
         language: "Russian",
@@ -72,7 +73,9 @@ class Translate extends Component {
 
   async getUsersTranslation(q, language) {
     const usersTranslation = await getTranslation(q, language.translation_tag)
-    const usersAudio = await getTranslation(q, language.spoken_tag)
+    console.log(usersTranslation);
+    console.log(q,language);
+    const usersAudio = await speak(q, language.spoken_tag)
     this.setState({
       usersTranslation,
       usersAudio
@@ -144,6 +147,25 @@ class Translate extends Component {
     //runTheTranslationScripts
     //need to make dropdown select
   }
+
+  componentWillReceiveProps(nextProps){
+  if(nextProps.allergies!==this.props.allergies){
+    this.setState({allergies: nextProps.allergies });
+    }
+  if(nextProps.relevantLanguages !== this.props.relevantLanguages) {
+    this.setState({relevantLanguages: nextProps.relevantLanguages });
+    }
+  /*if(nextProps.currentQuery[0] !== undefined) {
+    switch (nextProps.currentQuery[0]) {
+      case 'places-city':
+        let languages = await getCountryLanguages(nextProps.currentQuery[0].countryId);
+        this.setState({
+          relevantLanguages: languages
+        });
+    }
+  }*/
+  }
+
 
   render() {
     const { ask, emphasize, self, questions, translatedQuestions, phrases,

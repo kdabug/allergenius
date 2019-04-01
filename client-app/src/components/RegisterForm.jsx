@@ -21,10 +21,10 @@ export default props => {
   console.log("register user form props", userData);
   return (
     showRegister && (
-      <div className="user-form-container">
+      <div className="user-form-container" id="register-container">
         <div className="inner-form-container">
-          <img src="" alt="" />
-          <form>
+          <form id="register-form">
+          <div id="x">X</div>
           <img src="https://i.imgur.com/ypBE1hi.png" alt="" />
             <h2>{title}</h2>
             <div className="text-input-container">

@@ -24,7 +24,7 @@ import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 import { getLanguages } from "./services/languagesApi";
-import { getCountries, getCountry } from "./services/countriesApi";
+import { getCountries, getCountry, getCountryLanguages } from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
@@ -465,7 +465,9 @@ class App extends Component {
             <Translate
               {...props}
               userData={this.state.userData}
-              allergyQuery={this.state.currentQuery}
+              currentQuery={this.state.currentQuery}
+              allergies={this.state.allergyList.filter(allergen => allergen.name === props.match.params.allergen_name)}
+              relevantLanguages={this.state.languageList}
             />
           )}
         />
@@ -504,23 +506,27 @@ class App extends Component {
         />
         <Route
           exact
-          path="/places-cities/:place_name/:place_id"
+          path="/places-city/:place_name/:place_id"
           render={props => (
             <Translate
               {...props}
               userData={this.state.userData}
-              cityQuery={this.state.currentQuery}
+              currentQuery={this.state.currentQuery}
+              allergies={this.state.allergyList}
+              relevantLanguages={this.state.languageList}
             />
           )}
         />
         <Route
           exact
-          path="/places-countries/:place_name/:place_id"
+          path="/places-country/:place_name/:place_id"
           render={props => (
             <Translate
               {...props}
               userData={this.state.userData}
-              countryQuery={this.state.currentQuery}
+              currentQuery={this.state.currentQuery}
+              allergies={this.state.allergyList}
+              relevantLanguages={this.state.languageList}
             />
           )}
         />
@@ -532,7 +538,9 @@ class App extends Component {
               {...props}
               userData={this.state.userData}
               userAllergies={this.state.userAllergies}
-              languageQuery={this.state.currentQuery}
+              currentQuery={this.state.currentQuery}
+              allergies={this.state.allergyList}
+              relevantLanguages={this.state.languageList.filter(language => language.name === props.params.match.language_name)}
             />
           )}
         />

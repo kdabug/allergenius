@@ -7,7 +7,8 @@
 }
 
 input:focus {
-  outline: none;
+  outline: 1px solid var(--dark-blue-grey);
+  border: 1px solid var(--dark-blue-grey);
 }
 
 .header {
@@ -87,6 +88,17 @@ h1 {
   font-size: 50px;
 }
 
+#x {
+  align-self: flex-end;
+  padding: 5px 15px 0 0;
+  margin: 0;
+  font-size: 30px;
+}
+
+#x:hover {
+  cursor: pointer;
+}
+
 .user-form-container {
   position: fixed;
   top: 0;
@@ -135,8 +147,9 @@ form img {
   width: 360px;
   height: 53px;
   margin-bottom: 10px;
-  font-size: 35px;
+  font-size: 30px;
   border: 1px solid #979797;
+  padding-left: 5px;
 }
 
 .user-form-container button {
@@ -163,17 +176,16 @@ form img {
 }
 
 .login-bottom h5 {
-  color: #4a4a4a;
+  color: white;
   font-size: 16px;
+}
+
+#register-container img {
+  margin-top: 0
 }
 
 .text-input-register {
   height: auto;
-}
-
-.register-input {
-  height: 30px;
-  font-size: 10px;
 }
 
 #hover:hover {
@@ -317,6 +329,10 @@ form img {
   color: #173e43;
 }
 
+.translate-tabs:hover {
+  cursor: pointer;
+}
+
 #selected-tab {
   border-top-right-radius: 8px;
   border-right: none;
@@ -367,6 +383,24 @@ form img {
   border-bottom: 1px solid #173e43;
   width: 100%;
   padding-bottom: 20px;
+}
+
+.language audio {
+  align-self: flex-start;
+  /* border-bottom: 1px solid #173e43; */
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+audio {
+  height: 60px;
+  width: 100px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+audio:focus {
+  outline: none;
 }
 
 .icon-container {

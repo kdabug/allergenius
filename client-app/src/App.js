@@ -24,7 +24,11 @@ import { getTranslation, speak } from "./services/googleApiHelper";
 import { registerUser, verifyToken, loginUser } from "./services/usersApi";
 import { getCities } from "./services/citiesApi";
 import { getLanguages } from "./services/languagesApi";
-import { getCountries, getCountry, getCountryLanguages } from "./services/countriesApi";
+import {
+  getCountries,
+  getCountry,
+  getCountryLanguages
+} from "./services/countriesApi";
 import { getAllergies } from "./services/allergiesApi";
 import { getUserAllergies } from "./services/allergiesApi";
 import { getUsersBlogposts } from "./services/blogpostsApi";
@@ -178,8 +182,8 @@ class App extends Component {
   async handleLogin(e) {
     e.preventDefault();
     const { userData } = await loginUser(this.state.loginFormData);
-    console.log(userData);
-    const { id } = this.state.userData;
+    console.log("this is userData", userData);
+    const { id } = userData;
     const userAllergies = await getUserAllergies(id);
     const userTrips = await getUsersBlogposts(id);
     this.setState({
@@ -188,8 +192,10 @@ class App extends Component {
       userAllergies,
       userTrips
     });
-
-    this.props.history.push("/users");
+    console.log("this is userAllergies", this.state.userAllergies);
+    this.props.history.push(
+      `/user/${userData.id}/username/${userData.username}`
+    );
     // e.preventDefault();
     //const userData = await loginUser(this.state.loginFormData);
     //console.log("userdata from handleLogin", userData);
@@ -338,18 +344,18 @@ class App extends Component {
     await this.getAllCities();
     await this.getAllAllergens();
 
-    // try {
-    //   const { user } = await verifyToken();
-    //   if (user !== undefined) {
-    //     this.setState({
-    //       currentUser: user
-    //     });
-    //   } else {
-    //     this.props.history.push("/");
-    //   }
-    // } catch (e) {
-    //   this.props.history.push("/");
-    // }
+    try {
+      const { user } = await verifyToken();
+      if (user !== undefined) {
+        this.setState({
+          currentUser: user
+        });
+      } else {
+        this.props.history.push("/");
+      }
+    } catch (e) {
+      this.props.history.push("/");
+    }
     // const checkUser = localStorage.getItem("jwt");
     // if (checkUser) {
     //   const user = decode(checkUser);
@@ -367,7 +373,10 @@ class App extends Component {
   render() {
     return (
       <div className="Main-app-body">
-        <Header />
+        <Header
+          currentUser={this.state.currentUser}
+          userData={this.state.userData}
+        />
         <Route
           exact
           path="/"
@@ -466,7 +475,9 @@ class App extends Component {
               {...props}
               userData={this.state.userData}
               currentQuery={this.state.currentQuery}
-              allergies={this.state.allergyList.filter(allergen => allergen.name === props.match.params.allergen_name)}
+              allergies={this.state.allergyList.filter(
+                allergen => allergen.name === props.match.params.allergen_name
+              )}
               relevantLanguages={this.state.languageList}
             />
           )}
@@ -540,7 +551,9 @@ class App extends Component {
               userAllergies={this.state.userAllergies}
               currentQuery={this.state.currentQuery}
               allergies={this.state.allergyList}
-              relevantLanguages={this.state.languageList.filter(language => language.name === props.params.match.language_name)}
+              relevantLanguages={this.state.languageList.filter(
+                language => language.name === props.params.match.language_name
+              )}
             />
           )}
         />

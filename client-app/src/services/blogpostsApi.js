@@ -1,10 +1,17 @@
 const { api } = require("./apiHelper");
 
 //get blogposts
-async function getBlogposts() {
-  let resp = await api("/blogposts/");
-  return resp.data;
-}
+
+const getBlogposts = async () => {
+  try {
+    const resp = (resp = await api("/blogposts/"));
+
+    console.log(resp.data);
+    return resp.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 //create a blogPost ... make sure you pass user_id and countryId
 

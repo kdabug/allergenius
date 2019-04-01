@@ -14,9 +14,9 @@ export default props => {
     backButtonText,
     passwordAsk,
     title,
-    userData
+    userData,
+    allergens
   } = props;
-
   const showRegister = !show && !toggle;
   console.log("register user form props", userData);
   return (
@@ -49,6 +49,23 @@ export default props => {
                 />
               </div>
             </div>
+            <label htmlFor="allergens">
+              Select your allergies:
+              <select name="Allergens" multiple size="5">
+                {allergens &&
+                  allergens.map((el, i) => (
+                    <option
+                      className={el}
+                      name="avatar"
+                      key={el.id}
+                      value={el}
+                      onClick={onChange}
+                    >
+                      {el}
+                    </option>
+                  ))}
+              </select>
+            </label>
             <button type="submit" onClick={onSubmit}>
               Submit Edit
             </button>

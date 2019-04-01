@@ -35,6 +35,7 @@ import { getUsersBlogposts } from "./services/blogpostsApi";
 import getMedia from "./services/mediaHelper";
 import "./App.css";
 import { api } from "./services/apiHelper";
+import { getBlogposts } from "./services/blogpostsApi";
 
 class App extends Component {
   constructor(props) {
@@ -353,12 +354,19 @@ class App extends Component {
       countryList: countryList
     }));
   }
+  async getAllPosts() {
+    const postList = await getBlogposts();
+    this.setState((prevState, newState) => ({
+      postList: postList
+    }));
+  }
 
   async componentDidMount() {
     await this.getAllLanguages();
     await this.getAllCountries();
     await this.getAllCities();
     await this.getAllAllergens();
+    await this.getAllPosts();
     // try {
     //   const { user } = await verifyToken();
     //   if (user !== undefined) {

@@ -28,11 +28,17 @@ class AddBlogPost extends Component {
   }
   async handleSubmit(e) {
     e.preventDefault();
-    const cityId = 1;
+    const { cityList } = this.props;
+    console.log(this.state.cityName, cityList.cities);
+    const cityId = cityList.cities
+      .filter(city => city.name === this.state.cityName)
+      .map(city => city.id);
+    console.log("this is cityId", this.state.cityName + cityId);
     const resp = await createBlogpost(
       this.props.match.params.id,
-      cityId,
-      this.state.postData.text
+      cityId[0],
+      this.state.postData.text,
+      this.state.postData.title
     );
     console.log(resp);
     this.setState(prevState => ({
@@ -40,6 +46,9 @@ class AddBlogPost extends Component {
         ...prevState.postData
       }
     }));
+    this.props.history.push(
+      `/user/${this.props.userData.id}/username/${this.props.userData.username}`
+    );
   }
 
   async componentDidMount() {
@@ -58,7 +67,7 @@ class AddBlogPost extends Component {
           <input
             type="text"
             name="cityName"
-            value={this.state.city}
+            value={this.state.cityName}
             id="cityName"
             onChange={this.handleCommentFormChange}
           />

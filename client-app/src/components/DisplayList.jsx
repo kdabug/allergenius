@@ -17,9 +17,10 @@ const DisplayList = props => {
           .map((post, index) => (
             <div className="post-container">
               <div className="post-information">
-                <p>{post.name}</p>
-                <p>{post.created_at}</p>
+                <p>{post.title}</p>
+                <p>{createDate(post.created_at)}</p>
                 <p>{post.cityId}</p>
+                <p>{post.text}</p>
               </div>
             </div>
           ))}

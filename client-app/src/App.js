@@ -508,7 +508,11 @@ class App extends Component {
           exact
           path="/user/:id/post"
           render={props => (
-            <AddBlogPost {...props} userData={this.state.userData} />
+            <AddBlogPost
+              {...props}
+              userData={this.state.userData}
+              cityList={this.state.cityList}
+            />
           )}
         />
         <Route exact path="/contact" render={() => <Contact />} />

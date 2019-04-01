@@ -193,9 +193,9 @@ class App extends Component {
     this.setState({
       currentUser: userData,
       userData: {
-        id: userData.user.id,
-        username: userData.user.username,
-        email: userData.user.email
+        id: userData.id,
+        username: userData.username,
+        email: userData.email
       },
       token: userData.token,
       //token: localStorage.getItem("authToken")
@@ -236,9 +236,9 @@ class App extends Component {
     this.setState({
       currentUser: userData,
       userData: {
-        id: userData.user.id,
-        username: userData.user.username,
-        email: userData.user.email
+        id: userData.id,
+        username: userData.username,
+        email: userData.email
       },
       token: userData.token
     });

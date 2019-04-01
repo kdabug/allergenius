@@ -8,6 +8,7 @@ export default props => {
         <div className="user-form-container">
           <div className="inner-form-container">
             <form>
+              <div id="x">X</div>
               <img src="https://i.imgur.com/ypBE1hi.png" alt="" />
               <h2>Log in</h2>
               <div>
@@ -17,6 +18,7 @@ export default props => {
                   name="email"
                   id="email"
                   value={email}
+                  placeholder="Email"
                 />
               </div>
               <div>
@@ -26,6 +28,7 @@ export default props => {
                   name="password"
                   id="password"
                   value={password}
+                  placeholder="Password"
                 />
               </div>
               <button type="submit" onClick={onSubmit}>

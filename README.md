@@ -2,10 +2,10 @@
 
 project 4
 
-**description and user story**
+## description and user story
 UXDI persona -> insert here
 
-**technologies**
+## technologies
 
 - React and react router
 - Zeplin
@@ -16,9 +16,9 @@ UXDI persona -> insert here
 - Axios
 - Sequelize, express, and postgres
 
-**major problems & solutions**
+## major problems & solutions
 
-**MVP**
+## MVP
 Our app MVP and post-MVP contains the following:
 
 - Styled front-end using CSS and Stylized Components
@@ -41,7 +41,7 @@ Our app MVP and post-MVP contains the following:
 
 \*all items marked with (\*) are POST-MVP items
 
-**component library**
+## component library
 List of react components:
 
 - Login (function)
@@ -64,11 +64,11 @@ List of react components:
 - Header (function)
 - Footer (function)
 
-**API**
+## API
 googleTranslate API
 post-MVP yelp API
 
-**databases and relations**
+## databases and relations
 See database photo in images.
 List of databases:
 
@@ -77,4 +77,4 @@ List of databases:
 - Blogposts (belongsToUser belongsToAllergen belongsToCity)
 - City (hasManyBlogPosts)
 
-**code snippet**
+## code snippet
